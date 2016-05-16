@@ -1,0 +1,186 @@
+body {
+	font-family:arial;
+	background:#f5f8e6;
+	background-image:url('images/bgn.jpg');
+	background-position:center top;
+}
+form {
+	margin-bottom:none;
+	display: inline;
+	margin-top: none;
+}
+#blacklink {
+	color:#000;
+}
+#blacklink a{
+	color:#000;
+	text-decoration:none;
+}
+#blacklink a:hover{
+	color:#000;
+	text-decoration:underline;
+}
+#blacklink a:visited{
+	color:#000;
+	text-decoration:none;
+}
+		/* global */
+nav {
+	color: #000;
+	font: normal 13px/28px sans-serif;
+	height: 27px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-width: 600px;
+	z-index: 99999;
+}
+
+		/* gornji meni */
+nav ul {
+	margin:0;
+	padding: 0;
+	list-style:none;
+}
+
+		/* svi ul-ovi */
+nav ul li {
+	float:left;
+	min-width:80px;
+}
+
+		/* svi osim hoverovanih i parent-a */
+nav ul li a {
+	min-width:40px;
+   	float: left;
+	color:#000;
+    padding: 0px 10px;
+	text-decoration:none;
+}
+
+		/* hover topbar */
+nav ul li a:hover,
+nav ul li:hover > a {
+    	color: #fff;
+    	background:#464646;
+
+}
+		/* hover submeniji */
+nav li ul a:hover, 
+nav ul li li:hover > a  {
+    color: #fff;
+	background-color: #464646;
+}
+
+		/* svi submeniji */
+nav li ul {
+	background:#fff;
+	left: -999em;
+	margin: 27px 0 0;
+	position: absolute;
+	width: 150px;
+	z-index: 9999;
+}
+
+		/* svi submeniji */
+nav li:hover ul {
+	left: auto;
+}
+		/* svi submeniji osim hover i parent */
+nav li ul a {
+	color:#333;
+	background: none;
+	border: 0 none;
+	margin-right: 0;
+	width: 130px;
+}
+
+		/* drugi nivo podmenija */
+nav li li ul {
+	margin: 0 0 0 120px;
+	visibility:hidden;
+}
+
+		/* drugi nivo podmenija */
+nav li li:hover ul {
+	visibility:visible;
+}
+#sp{
+	background: url('images/sep.gif') repeat-y right;
+	width:2px;
+	height:28px;
+	z-index:999999
+}
+
+ul {list-style:none;}
+
+.backlink:hover {
+	background:#fff;
+}
+.backlink:hover {
+	background:#ccc;
+}
+
+.graylink {
+	color:#333;
+	text-decoration:none;
+}
+#logform {
+	border-radius:10px;
+	padding:10px;
+	background:#fff;
+	opacity:0.7;
+	width:300px;
+	font-size:14;
+	border:2px solid #aaa;
+	box-shadow: 10px 10px 5px #888;
+	margin:50px auto;
+}
+.iur {
+	width:100%;
+}
+.iul {
+	width:165px;
+	float:left;
+	padding:3px 5px 2px 0;
+	text-align:right 
+}
+.iud {
+	float:left;
+	margin-left:5px;
+}
+.wrap {
+	font-size:12;
+}
+.wrap input {
+	font-size:12;
+	height:18px;
+	width:153px;
+}
+.wrap textarea {
+	font-size:12;
+	font-family:arial;
+}
+.wrap select {
+	font-size:12
+}
+.connectedSortable {
+	font-family:arial
+}
+#ielement {
+	width:410px;
+	margin:10px;
+	padding:10px;
+	float:left;
+	background:#fff;
+	font-size:11;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	border: 2px #333 solid;
+}
+.cols {
+	width:130px;
+	float:left;
+	margin-right:6px;
+}
