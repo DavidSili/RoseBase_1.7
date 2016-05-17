@@ -18,34 +18,34 @@ if(isset($_POST) && !empty($_POST)) {
 		$$xx=$yy;
 	}
 
-	if (isset($naziv)) $naziv=mysql_real_escape_string($naziv);
-	if (isset($sifra)) $sifra=mysql_real_escape_string($sifra);
+	if (isset($naziv)) $naziv=mysqli_real_escape_string($mysqli,$naziv);
+	if (isset($sifra)) $sifra=mysqli_real_escape_string($mysqli,$sifra);
 	
 	$dattime=date('G:i:s j.n.Y.');
 	$sql='SELECT ID FROM ctarife ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die;
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
 	$nextID=$lastID+1;
 	
 	if (isset($_POST['del'])) {
 		$del=$_POST['del'];
 		$sql='DELETE FROM ctarife WHERE ID="'.$del.'"';
-		mysql_query($sql);
+		mysqli_query($mysqli,$sql);
 	}
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$sql='INSERT INTO ctarife (naziv, sifra, stopa, uneo) VALUES ("'.$naziv.'","'.$sifra.'","'.$stopa.'","'.$user.' - '.$dattime.'")';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 	else {
 		$sql='SELECT menjali FROM ctarife WHERE sifra="'.$sifra.'"';
-		$result=mysql_query($sql);
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql);
+		$row=$result->fetch_assoc();
 		$xmenjali=$row['menjali'];
 		$cid=$IDx;
 		
 		$sql='UPDATE ctarife SET naziv="'.$naziv.'", sifra="'.$sifra.'", stopa="'.$stopa.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 		
 }
@@ -82,8 +82,8 @@ elseif (isset($cid)) echo ' onload="izmena('.$IDx.')"';
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv`,`sifra` FROM ctarife ORDER BY `naziv` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
@@ -100,8 +100,8 @@ echo '<a href="#" onclick="izmena('.$ID.')" title="'.$sifra.'">'.$naziv.'</a><br
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM ctarife ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
 $ID=$row['ID']+1;
 echo $ID;

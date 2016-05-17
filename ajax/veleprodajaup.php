@@ -5,8 +5,8 @@ $skladiste = isset($_GET["skladiste"]) ? $_GET["skladiste"] : 0;
 $osoba = isset($_GET["osoba"]) ? $_GET["osoba"] : 0;
 
 $sql='SELECT partneri.ID partner, gpartnera.cena cena FROM partneri LEFT JOIN gpartnera ON partneri.gpartnera = gpartnera.ID WHERE partneri.ID = "'.$osoba.'"';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $cena=$row['cena'];
 switch ($cena) {
     case 1:
@@ -28,14 +28,14 @@ $sorttu="";
 $imaproizvode=array();
 if ($skladiste==0) {
 $sql='SELECT ID FROM skladista WHERE status="da" ORDER BY ID ASC LIMIT 1';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $skladiste=$row['ID'];
 }
 
 $sql="SELECT proizvod, max(nabcena) fnc FROM nabavkaitems GROUP BY proizvod";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	$proizvod=$row['proizvod'];
 	$fnc=$row['fnc'];
 	$finc[$proizvod]=$fnc;
@@ -43,14 +43,14 @@ while ($row=mysql_fetch_assoc($result)) {
 
 if ($posebno!="x") {
 $sql="SELECT datprometa, bifr FROM prodaja WHERE ID=$posebno";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $datprometa=$row['datprometa'];
 $bifr=$row['bifr'];
 
 $sql="SELECT proizvod FROM prodajaitems WHERE prodaja=$posebno";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	$proizvod=$row['proizvod'];
 	$imaproizvode[]=$proizvod;
 }
@@ -94,8 +94,8 @@ $bifr=1;
 	ORDER BY proizvodi.ID ASC";
 	}
 $debug=$sql;
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }

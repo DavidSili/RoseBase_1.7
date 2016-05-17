@@ -6,24 +6,24 @@ $profe = isset($_GET["prof"]) ? $_GET["prof"] : 0;
 $passhtml=array();
 if ($posebno=="x") {
 $sql='SELECT COUNT(ID) fakt FROM prodaja WHERE brracuna IS NOT NULL AND brracuna <>""';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $fakt=$row['fakt'];
 
 $sql='SELECT COUNT(ID) prof FROM prodaja WHERE brpracuna IS NOT NULL AND brracuna =""';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $prof=$row['prof'];
 }
 else {
 $sql='SELECT COUNT(ID) fakt FROM prodaja WHERE kupac="'.$posebno.'" AND brracuna IS NOT NULL AND brracuna <>""';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $fakt=$row['fakt'];
 
 $sql='SELECT COUNT(ID) prof FROM prodaja WHERE kupac="'.$posebno.'" AND brpracuna IS NOT NULL AND brracuna =""';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $prof=$row['prof'];
 }
 
@@ -35,8 +35,8 @@ else $sql='SELECT SUM(popust) popust, SUM(zarada) zarada, SUM(bezpopusta) bezpop
 if ($posebno=='x' AND $profe==0) $sql.= ' WHERE brpracuna IS NOT NULL';
 elseif ($posebno!='x' AND $profe==0) $sql.=' AND brpracuna IS NOT NULL';
 
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -55,8 +55,8 @@ $pk=0;
 if ($posebno=="x" OR $posebno==84) {
 $passhtml['info'].='<center><b>Pazari</b></center>';
 $sql="SELECT `ID`,`datprometa` FROM prodaja WHERE kupac='84' ORDER BY `datprometa` DESC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -68,14 +68,14 @@ while($row=mysql_fetch_assoc($result)) {
 if ($fk>0) $passhtml['info']= substr($passhtml['info'], 0, -5);
 $passhtml['info'].='</div>';
 $sql="SELECT `ID`,`brpracuna` FROM prodaja WHERE kupac=$posebno ORDER BY `brpracuna` DESC";
-$result=mysql_query($sql) or die;
+$result=mysqli_query($mysqli,$sql) or die;
 
 }
 else {
 $passhtml['info'].='<center><b>Fakture</b></center>';
 $sql="SELECT `ID`,`brracuna` FROM prodaja WHERE `brracuna` IS NOT NULL AND `brracuna` !='' AND kupac=$posebno ORDER BY `brracuna` DESC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -86,8 +86,8 @@ while($row=mysql_fetch_assoc($result)) {
 if ($fk>0) $passhtml['info']= substr($passhtml['info'], 0, -5);
 $passhtml['info'].='</div><div style="width:85px;float:left;font-weight:bold;margin-left:10px;overflow:auto;height:90px"><center><b>Profakture</b></center>';
 $sql="SELECT `ID`,`brpracuna` FROM prodaja WHERE kupac=$posebno ORDER BY `brpracuna` DESC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -111,8 +111,8 @@ if ($posebno=='x' AND $profe==0) $sql.= ' WHERE brpracuna IS NOT NULL';
 elseif ($posebno!='x' AND $profe==0) $sql.=' AND brpracuna IS NOT NULL';
 
 $sql.= ' GROUP BY sifra ORDER BY proizvodi.ID ASC';
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -120,8 +120,8 @@ while ($row=mysql_fetch_assoc($result)) {
 }
 $passhtml['sve'].='</table>';
 $sql='SELECT partneri.ime ime, partneri.prezime prezime, prodaja.kupac kupac FROM prodaja LEFT JOIN partneri ON prodaja.kupac = partneri.ID WHERE partneri.ID = '.$posebno;
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $ime=$row['ime'];
 $prezime=$row['prezime'];
 

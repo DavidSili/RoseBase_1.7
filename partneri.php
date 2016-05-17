@@ -18,12 +18,12 @@ if(isset($_POST) && !empty($_POST)) {
 		$$xx=$yy;
 	}
 
-	if (isset($naziv)) $naziv=mysql_real_escape_string($naziv);
+	if (isset($naziv)) $naziv=mysqli_real_escape_string($mysqli,$naziv);
 	
 	$dattime=date('G:i:s j.n.Y.');
 	$sql='SELECT ID FROM partneri ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die;
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
 	$nextID=$lastID+1;
 
@@ -34,21 +34,21 @@ if (isset($maticni)==false) $maticni=NULL;
 	if (isset($_POST['del'])) {
 		$del=$_POST['del'];
 		$sql='DELETE FROM partneri WHERE ID="'.$del.'"';
-		mysql_query($sql);
+		mysqli_query($mysqli,$sql);
 	}
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$sql='INSERT INTO partneri (gpartnera, ime, prezime, pol, ulicaibr, mesto, drzava, firma, pib, maticni, telefon, mobilni, email, uneo) VALUES ("'.$gpartnera.'","'.$ime.'","'.$prezime.'","'.$pol.'","'.$ulicaibr.'","'.$mesto.'","'.$drzava.'","'.$firma.'","'.$pib.'","'.$maticni.'","'.$telefon.'","'.$mobilni.'","'.$email.'","'.$user.' - '.$dattime.'")';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 	else {
 		$sql='SELECT menjali FROM partneri WHERE ID="'.$IDx.'"';
-		$result=mysql_query($sql);
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql);
+		$row=$result->fetch_assoc();
 		$xmenjali=$row['menjali'];
 		$cid=$IDx;
 		
 		$sql='UPDATE partneri SET gpartnera="'.$gpartnera.'", ime="'.$ime.'", prezime="'.$prezime.'", pol="'.$pol.'", ulicaibr="'.$ulicaibr.'", mesto="'.$mesto.'", drzava="'.$drzava.'", firma="'.$firma.'", pib="'.$pib.'", maticni="'.$maticni.'", telefon="'.$telefon.'", mobilni="'.$mobilni.'", email="'.$email.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 		
 }
@@ -86,16 +86,16 @@ elseif (isset($cid)) echo ' onload="izmena('.$IDx.')"';
 <?php
 $gpartneraxx="";
 $sql="SELECT `ID`,`naziv` FROM gpartnera ORDER BY `ID`";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
 	$gpartnerax[$ID]=$naziv;
 }
 $sql="SELECT `ID`,`prezime`,`ime`,`gpartnera` FROM partneri ORDER BY `gpartnera`,`prezime`,`ime` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -116,8 +116,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM partneri ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
 $ID=$row['ID']+1;
 echo $ID;
@@ -132,8 +132,8 @@ else echo '1';
 		<select id="ygpartnera" type="text" name="gpartnera" class="iud" autofocus onchange="pravno()">
 <?php
 $sql='SELECT ID, naziv FROM gpartnera ORDER BY naziv';
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	if (strpos($naziv,'Pravno') !== false) $bgn='daeafa';
@@ -169,8 +169,8 @@ while($row=mysql_fetch_assoc($result)) {
 	</div>
 <?php
 $sql='SELECT broj, mesto FROM pobroj ORDER BY mesto';
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$broj=$row['broj'];
 	$mesto=$row['mesto'];
 	$pobrojevi[$broj]=$mesto;

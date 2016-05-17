@@ -41,8 +41,8 @@
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql='SELECT `prodaja`.`ID` ID, `prodaja`.`brracuna` brracuna FROM prodaja LEFT JOIN skladista ON `prodaja`.`skladiste`=`skladista`.`ID` WHERE tip = "3" ORDER BY `prodaja`.`brracuna` DESC';
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;

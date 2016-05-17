@@ -12,15 +12,15 @@ if (isset($_GET['login'])) {
 	$usersent=stripslashes($usersent);
 	$passsent=stripslashes($passsent);
 	$pass_url=stripslashes($pass_url);
-	$usersent=mysql_real_escape_string($usersent);
-	$passsent=mysql_real_escape_string($passsent);
-	$pass_url=mysql_real_escape_string($pass_url);
+	$usersent=mysqli_real_escape_string($mysqli,$usersent);
+	$passsent=mysqli_real_escape_string($mysqli,$passsent);
+	$pass_url=mysqli_real_escape_string($mysqli,$pass_url);
 	$sql = 'SELECT * FROM users WHERE `username`="'.$usersent.'"';
-	$result = mysql_query($sql) or die;
+	$result = mysqli_query($mysqli,$sql) or die;
 	
 	if (mysql_num_rows($result)==1) {
 	
-		$row=mysql_fetch_assoc($result);
+		$row=$result->fetch_assoc();
 		$passsql=$row['password'];
 		$saltsql=$row['salt'];
 		$level=$row['level'];

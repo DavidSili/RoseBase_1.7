@@ -41,8 +41,8 @@
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv` FROM skladista ORDER BY `ID` DESC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;

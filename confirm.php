@@ -3,14 +3,14 @@ include 'config.php';
 
 $passkey=$_GET['passkey'];
 $passkey=stripslashes($passkey);
-$passkey=mysql_real_escape_string($passkey);
+$passkey=mysqli_real_escape_string($mysqli,$passkey);
 
 $sql="SELECT * FROM users WHERE confcode ='$passkey'";
-$result=mysql_query($sql) or die;
+$result=mysqli_query($mysqli,$sql) or die;
 if($result){
 	$count=mysql_num_rows($result);
 	if($count==1){
-		$row=mysql_fetch_array($result);
+		$row=$result->fetch_assoc();
 		$ID=$row['ID'];
 		$name=$row['name'];
 		$username=$row['username'];
@@ -19,7 +19,7 @@ if($result){
 		$country=$row['country'];
 		$confcode2=$row['confcode2'];
 		$sql="UPDATE users SET `level`='1' WHERE `ID`='$ID'";
-		$result=mysql_query($sql) or die;
+		$result=mysqli_query($mysqli,$sql) or die;
 		
 		echo "Vasa e-mail adresa je proverena. Molimo vas za strpljenje - administrator ce vas uskoro kontaktirati i aktivirati vas nalog.";
 

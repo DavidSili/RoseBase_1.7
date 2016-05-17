@@ -52,8 +52,8 @@ $kalendar=array(1=>'Januar',2=>'Februar',3=>'Mart',4=>'April',5=>'Maj',6=>'Jun',
 $sgodina=0;
 $smesec=0;
 $sql="SELECT `ID`,`datprometa` FROM prodaja WHERE `brpracuna` = '' ORDER BY `datprometa` DESC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 $ID=$row['ID'];
 $datprometa=$row['datprometa'];
 $dansedmice=date('N',strtotime($datprometa));

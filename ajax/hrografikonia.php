@@ -16,8 +16,8 @@ if ($period==1) {
 			FROM (SELECT SUM($prihod) AS $prihod
 				FROM prodaja
 				GROUP BY month(datprometa)) AS tmp";
-	$result=mysql_query($sql) or die (mysql_error());
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$MaxUplata=$row['MaxUplata'];
 	if ($MaxUplata>20000000) {
 			$gradval=5;
@@ -72,8 +72,8 @@ if ($period==1) {
 	$skala='<div style="height:620px;margin-top:12px; padding-right: 15px; width:45px;float:left;"><div class="skala">'.($gradval*10).$unit.'</div><div class="skala">'.($gradval*9).$unit.'</div><div class="skala">'.($gradval*8).$unit.'</div><div class="skala">'.($gradval*7).$unit.'</div><div class="skala">'.($gradval*6).$unit.'</div><div class="skala">'.($gradval*5).$unit.'</div><div class="skala">'.($gradval*4).$unit.'</div><div class="skala">'.($gradval*3).$unit.'</div><div class="skala">'.($gradval*2).$unit.'</div><div class="skala">'.($gradval*1).$unit.'</div><div class="skala">0</div></div>';
 	$grafikon='';
 	$sql='SELECT MONTH(datprometa) mesec, YEAR (datprometa) godina, SUM('.$prihod.') zauplatu FROM prodaja WHERE brpracuna<>"" GROUP BY year(datprometa), month(datprometa) ORDER BY datprometa DESC';
-	$result=mysql_query($sql) or die (mysql_error());
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		$godina=$row['godina'];
 		$mesec=$row['mesec'];
 		$promet=$row['zauplatu'];
@@ -82,8 +82,8 @@ if ($period==1) {
 		$podaci[$mesec.'-'.$godina]['godina']=$godina;
 	}
 	$sql='SELECT MONTH(datprometa) mesec, YEAR (datprometa) godina, SUM('.$prihod.') zauplatu FROM prodaja WHERE brpracuna="" GROUP BY year(datprometa), month(datprometa) ORDER BY datprometa DESC';
-	$result=mysql_query($sql) or die (mysql_error());
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		$godina=$row['godina'];
 		$mesec=$row['mesec'];
 		$promet=$row['zauplatu'];
@@ -120,8 +120,8 @@ elseif ($period==2) {
 			FROM (SELECT SUM($prihod) AS $prihod
 				FROM prodaja
 				GROUP BY year(datprometa), week(datprometa)) AS tmp";
-	$result=mysql_query($sql) or die (mysql_error());
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$MaxUplata=$row['MaxUplata'];
 	if ($MaxUplata>5000000) {
 			$gradval=1;
@@ -176,8 +176,8 @@ elseif ($period==2) {
 	$skala='<div style="height:620px;margin-top:12px; padding-right: 15px; width:45px;float:left;"><div class="skala">'.($gradval*10).$unit.'</div><div class="skala">'.($gradval*9).$unit.'</div><div class="skala">'.($gradval*8).$unit.'</div><div class="skala">'.($gradval*7).$unit.'</div><div class="skala">'.($gradval*6).$unit.'</div><div class="skala">'.($gradval*5).$unit.'</div><div class="skala">'.($gradval*4).$unit.'</div><div class="skala">'.($gradval*3).$unit.'</div><div class="skala">'.($gradval*2).$unit.'</div><div class="skala">'.($gradval*1).$unit.'</div><div class="skala">0</div></div>';
 	$grafikon='';
 	$sql='SELECT WEEK(datprometa) sedmica, YEAR (datprometa) godina, SUM('.$prihod.') zauplatu FROM prodaja WHERE brpracuna<>"" GROUP BY year(datprometa), week(datprometa) ORDER BY datprometa DESC';
-	$result=mysql_query($sql) or die (mysql_error());
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		$godina=$row['godina'];
 		$sedmica=$row['sedmica'];
 		$promet=$row['zauplatu'];
@@ -186,8 +186,8 @@ elseif ($period==2) {
 		$podaci[$sedmica.'-'.$godina]['godina']=$godina;
 	}
 	$sql='SELECT WEEK(datprometa) sedmica, YEAR (datprometa) godina, SUM('.$prihod.') zauplatu FROM prodaja WHERE brpracuna="" GROUP BY year(datprometa), week(datprometa) ORDER BY datprometa DESC';
-	$result=mysql_query($sql) or die (mysql_error());
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		$godina=$row['godina'];
 		$sedmica=$row['sedmica'];
 		$promet=$row['zauplatu'];
@@ -225,8 +225,8 @@ elseif ($period==3) {
 			FROM (SELECT SUM($prihod) AS $prihod
 				FROM prodaja
 				GROUP BY datprometa) AS tmp";
-	$result=mysql_query($sql) or die (mysql_error());
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$MaxUplata=$row['MaxUplata'];
 	if ($MaxUplata>5000000) {
 			$gradval=1;
@@ -281,8 +281,8 @@ elseif ($period==3) {
 	$skala='<div style="height:620px;margin-top:12px; padding-right: 15px; width:45px;float:left;"><div class="skala">'.($gradval*10).$unit.'</div><div class="skala">'.($gradval*9).$unit.'</div><div class="skala">'.($gradval*8).$unit.'</div><div class="skala">'.($gradval*7).$unit.'</div><div class="skala">'.($gradval*6).$unit.'</div><div class="skala">'.($gradval*5).$unit.'</div><div class="skala">'.($gradval*4).$unit.'</div><div class="skala">'.($gradval*3).$unit.'</div><div class="skala">'.($gradval*2).$unit.'</div><div class="skala">'.($gradval*1).$unit.'</div><div class="skala">0</div></div>';
 	$grafikon='';
 	$sql='SELECT datprometa, '.$prihod.' zauplatu, IF(brpracuna="",1,2) vrsta FROM prodaja ORDER BY datprometa DESC';
-	$result=mysql_query($sql) or die (mysql_error());
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		$datum=$row['datprometa'];
 		$promet=$row['zauplatu'];
 		$vrsta=$row['vrsta'];
@@ -323,8 +323,8 @@ elseif ($period==4) {
 			FROM (SELECT SUM($prihod) AS $prihod
 				FROM prodaja WHERE datprometa > '$datod' AND datprometa < '$datdo'
 				GROUP BY datprometa) AS tmp";
-	$result=mysql_query($sql) or die (mysql_error());
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$MaxUplata=$row['MaxUplata'];
 	if ($MaxUplata>5000000) {
 			$gradval=1;
@@ -379,8 +379,8 @@ elseif ($period==4) {
 	$skala='<div style="height:620px;margin-top:12px; padding-right: 15px; width:45px;float:left;"><div class="skala">'.($gradval*10).$unit.'</div><div class="skala">'.($gradval*9).$unit.'</div><div class="skala">'.($gradval*8).$unit.'</div><div class="skala">'.($gradval*7).$unit.'</div><div class="skala">'.($gradval*6).$unit.'</div><div class="skala">'.($gradval*5).$unit.'</div><div class="skala">'.($gradval*4).$unit.'</div><div class="skala">'.($gradval*3).$unit.'</div><div class="skala">'.($gradval*2).$unit.'</div><div class="skala">'.($gradval*1).$unit.'</div><div class="skala">0</div></div>';
 	$grafikon='';
 	$sql='SELECT datprometa, '.$prihod.' zauplatu, IF(brpracuna="",1,2) vrsta FROM prodaja WHERE datprometa > \''.$datod.'\' AND datprometa < \''.$datdo.'\' ORDER BY datprometa DESC';
-	$result=mysql_query($sql) or die (mysql_error());
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		$datum=$row['datprometa'];
 		$promet=$row['zauplatu'];
 		$vrsta=$row['vrsta'];

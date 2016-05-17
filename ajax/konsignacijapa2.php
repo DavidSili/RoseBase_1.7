@@ -8,7 +8,7 @@
 		exit;
 	}
 	else {
-	include 'config.php';
+	include '../config.php';
 	$level=$_SESSION['level'];
 	$user=$_SESSION['user'];
 	}
@@ -59,7 +59,6 @@ td {
 </head>
 <body>
 <?php
-include 'config.php';
 $posebno = isset($_GET["posebno"]) ? $_GET["posebno"] : 0;
 $specifikacija = isset($_GET["specifikacija"]) ? $_GET["specifikacija"] : 0;
 $redova = isset($_GET["redova"]) ? $_GET["redova"] : 0;
@@ -67,15 +66,15 @@ $redovi=explode(',',$redova);
 $brstranica=count($redovi);
 
 $sql='SELECT partneri.gpartnera gpartnera, gpartnera.cena cena, partneri.ime ime, partneri.prezime prezime, partneri.ulicaibr ulicaibr, partneri.mesto mesto, partneri.firma firma, partneri.pib pib, partneri.telefon telefon, pobroj.broj pobroj FROM partneri LEFT JOIN pobroj ON partneri.mesto = pobroj.mesto LEFT JOIN skladista ON partneri.ID = skladista.oosoba LEFT JOIN gpartnera ON partneri.gpartnera = gpartnera.ID WHERE skladista.ID = "'.$posebno.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }
 
 $sql='SELECT datum FROM msklad WHERE skladiz="'.$posebno.'" or skladu="'.$posebno.'" ORDER BY datum DESC LIMIT 1';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $datprometa=$row['datum'];
 
 $danas=date('d.m.Y.');
@@ -112,8 +111,8 @@ if ($brstranica==1) {
 $sve.='<table style="font-size:12" border="1"><tr style="background:#ddd"><th stlye="width:16px">Br.</th><th style="width:50px">Šifra proizvoda</th><th>Vrsta robe - usluga</th><th style="width:20px">Kol.</th><th>JM</th><th style="width:68px">MPC</th><th style="width:68px">VPC</th><th style="width:40px">Rabat</th><th style="width:74px">Osnovica</th><th style="width:62px">PDV 20%</th><th style="width:74px">Ukupno</th></tr>';
 
 $sql='SELECT zalihe.proizvod proizvod, zalihe.kolicina kolicina, proizvodi.naziv naziv, proizvodi.pcena pcena, proizvodi.pdv pdv FROM zalihe LEFT JOIN proizvodi ON zalihe.proizvod = proizvodi.sifra WHERE skladiste="'.$posebno.'" AND kolicina>0 ORDER BY proizvodi.ID ASC';
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -167,8 +166,8 @@ else {
 		$prosli=$xx;
 		$sql='SELECT zalihe.proizvod proizvod, zalihe.kolicina kolicina, proizvodi.naziv naziv, proizvodi.pcena pcena, proizvodi.pdv pdv FROM zalihe LEFT JOIN proizvodi ON zalihe.proizvod = proizvodi.sifra WHERE skladiste="'.$posebno.'" AND kolicina>0 ORDER BY proizvodi.ID ASC LIMIT '.$staro.','.$yy;
 		}
-		$result=mysql_query($sql) or die;
-		while ($row=mysql_fetch_assoc($result)) {
+		$result=mysqli_query($mysqli,$sql) or die;
+		while ($row=$result->fetch_assoc()) {
 			foreach($row as $xx => $yy) {
 				$$xx=$yy;
 			}

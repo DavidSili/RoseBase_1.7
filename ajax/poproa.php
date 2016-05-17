@@ -5,8 +5,8 @@ $posebno = isset($_GET["posebno"]) ? $_GET["posebno"] : 0;
 $passhtml=array();
 
 $sql='SELECT ID, naziv, ncena, pcena FROM proizvodi WHERE sifra = "'.$posebno.'"';
-$result=mysql_query($sql) or die (mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $ID=$row['ID'];
 $naziv=$row['naziv'];
 $ncena=$row['ncena'];
@@ -14,8 +14,8 @@ $pcena=$row['pcena'];
 $ncena=number_format($ncena, 2, '.', ',');
 
 $sql='SELECT SUM(kolicina) kolicina, SUM(kolicina*nabcena) nabcenasve FROM nabavkaitems WHERE proizvod = "'.$posebno.'"';
-$result=mysql_query($sql) or die (mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $nabkol=$row['kolicina'];
 $nabcenasve=$row['nabcenasve'];
 $nabcenasvef=number_format($nabcenasve, 2, '.', ',');
@@ -23,8 +23,8 @@ $nabcena=$nabcenasve/$nabkol;
 $nabcena=number_format($nabcena, 2, '.', ',');
 
 $sql='SELECT SUM( kolicina ) kolicina, SUM( kolicina * mpbezpdv * ( 100 + pdv ) * ( 100 - rabat ) /10000 ) pcena, SUM( rabat * kolicina ) popust FROM prodajaitems WHERE proizvod ="'.$posebno.'"';
-$result=mysql_query($sql) or die (mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $prodkol=$row['kolicina'];
 $popusti=$row['popust'];
 $prodcenasve=$row['pcena'];
@@ -46,8 +46,8 @@ $passhtml['gore']='<div style="float:left;min-width:200px;max-width:300px;height
 $passhtml['ostalo']='<table border="1" style="font-size:12;text-align:right"><tr style="text-align:center"><th>Datum</th><th>Količina</th><th>Cena</th><th title="*Ukoliko je nabavka, onda ovo polje ne važi">Rabat*</th><th title="*Ukoliko je nabavka, onda ovo polje ne važi">PDV*</th><th>Ukupno</th><th title="*Ukoliko je nabavka, onda ovo polje ne važi">Profaktura*</th><th title="*Ukoliko je nabavka, onda ovo polje ne važi">Faktura*</th></tr>';
 
 $sql='(SELECT nabavkaitems.kolicina kolicina, nabavkaitems.nabcena cena, nabavka.datprijemarobe datum, "" pdv, "" rabat, "1" marker, "" prodaja, "" brracuna, "" brpracuna FROM nabavkaitems LEFT JOIN nabavka ON nabavkaitems.nabavka = nabavka.ID WHERE proizvod = "'.$posebno.'") UNION (SELECT prodajaitems.kolicina kolicina, (prodajaitems.mpbezpdv*(prodajaitems.pdv+100)*(100-prodajaitems.rabat)/10000) cena, prodaja.datprometa datum, prodajaitems.pdv pdv, prodajaitems.rabat rabat, "2" marker, prodajaitems.prodaja prodaja, prodaja.brracuna brracuna, prodaja.brpracuna brpracuna FROM prodajaitems LEFT JOIN prodaja ON prodajaitems.prodaja = prodaja.ID WHERE proizvod =  "'.$posebno.'") ORDER BY datum DESC';
-$result=mysql_query($sql) or die (mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 $kolicina=$row['kolicina'];
 $cena=$row['cena'];
 $datum=$row['datum'];

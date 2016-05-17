@@ -7,8 +7,8 @@ $svesifre="";
 $sviID="";
 $svekon="";
 $sql='SELECT ID, konsignacija FROM prodaja WHERE konsignacija != "" AND (brracuna!="" OR kupac="84")';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -52,8 +52,8 @@ UNION ALL
 $debug=$sql;
 $rb=1;
 $ukpredmeta=0;
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }

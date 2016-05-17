@@ -59,7 +59,6 @@ td {
 </head>
 <body>
 <?php
-include 'config.php';
 $posebno = isset($_GET["posebno"]) ? $_GET["posebno"] : 0;
 $redova = isset($_GET["redova"]) ? $_GET["redova"] : 0;
 $redovi=explode(',',$redova);
@@ -67,33 +66,33 @@ $brstranica=count($redovi);
 
 if ($posebno!=0) $sql="SELECT * FROM prodaja WHERE `ID`=$posebno";
 else $sql="SELECT * FROM prodaja WHERE `brracuna` IS NOT NULL AND `brracuna` !='' ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }
 
 $sql='SELECT naziv nazivsklad FROM skladista WHERE ID="'.$skladiste.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $nazivsklad=$row['nazivsklad'];
 if ($nazivsklad != "Pančevo" OR $nazivsklad != "Biofresh") {
 	$sql='SELECT skladista.naziv nazivsklad, skladista.adresa adresasklad, partneri.ime imeosobe, partneri.prezime prezimeosobe, partneri.gpartnera gpartneraf, partneri.ulicaibr ulicaibrf, partneri.mesto mestof, pobroj.broj pobrojf, partneri.drzava drzavaf, partneri.firma firmaf, partneri.pib pibf, partneri.maticni maticnif, partneri.telefon telefonf, partneri.email emailf FROM skladista LEFT JOIN partneri ON skladista.oosoba = partneri.ID LEFT JOIN pobroj ON partneri.mesto = pobroj.mesto WHERE skladista.ID="'.$skladiste.'"';
-	$result=mysql_query($sql) or die;
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
 }
 
 $sql='SELECT SUM(kolicina) kontkol FROM prodajaitems WHERE prodaja="'.$posebno.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $kontkol=$row['kontkol'];
 
 $sql='SELECT partneri.gpartnera gpartnera, partneri.ime ime, partneri.prezime prezime, partneri.ulicaibr ulicaibr, partneri.mesto mesto, partneri.firma firma, partneri.pib pib, partneri.telefon telefon, pobroj.broj pobroj FROM partneri LEFT JOIN pobroj ON partneri.mesto = pobroj.mesto WHERE partneri.ID="'.$kupac.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }
@@ -116,8 +115,8 @@ if ($brstranica==1) {
 $sve.='<table style="font-size:12" border="1"><tr style="background:#ddd"><th style="width:16px">Br.</th><th style="width:50px">Šifra proizvoda</th><th>Vrsta robe - usluga</th><th style="width:20px">Kol.</th><th>JM</th><th style="width:74px">VPC</th><th style="width:62px">PDV</th><th style="width:74px">Ukupno bez PDV-a</th><th style="width:74px">Ukupno sa PDV-om</th></tr>';
 
 $sql='SELECT prodajaitems.iduprodaji iduprodaji, prodajaitems.proizvod proizvod, prodajaitems.kolicina kolicina, prodajaitems.mpbezpdv mpbezpdv, prodajaitems.pdv pdv, proizvodi.naziv naziv, proizvodi.sifrakasa sifkas FROM prodajaitems LEFT JOIN proizvodi ON prodajaitems.proizvod = proizvodi.sifra WHERE prodajaitems.prodaja="'.$ID.'" ORDER BY prodajaitems.iduprodaji ASC';
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -156,9 +155,9 @@ else {
 		$prosli=$xx;
 		$sql='SELECT prodajaitems.iduprodaji iduprodaji, prodajaitems.proizvod proizvod, prodajaitems.kolicina kolicina, prodajaitems.mpbezpdv mpbezpdv, prodajaitems.pdv pdv, proizvodi.naziv naziv, proizvodi.sifrakasa sifkas FROM prodajaitems LEFT JOIN proizvodi ON prodajaitems.proizvod = proizvodi.sifra WHERE prodajaitems.prodaja="'.$ID.'" ORDER BY prodajaitems.iduprodaji ASC LIMIT '.$staro.','.$yy;
 		}
-		$result=mysql_query($sql) or die;
+		$result=mysqli_query($mysqli,$sql) or die;
 		$redbroj=0;
-		while ($row=mysql_fetch_assoc($result)) {
+		while ($row=$result->fetch_assoc()) {
 			foreach($row as $xx => $yy) {
 				$$xx=$yy;
 			}

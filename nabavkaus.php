@@ -18,13 +18,13 @@ if(isset($_POST) && !empty($_POST)) {
 		$$xx=$yy;
 	}
 
-	if (isset($brnarudzbenice)) $brnarudzbenice=mysql_real_escape_string($brnarudzbenice);
-	if (isset($kursbanka)) $kursbanka=mysql_real_escape_string($kursbanka);
-	if (isset($kurssred)) $kurssred=mysql_real_escape_string($kurssred);
-	if (isset($kurscarine)) $kurscarine=mysql_real_escape_string($kurscarine);
-	if (isset($transport)) $transport=mysql_real_escape_string($transport);
-	if (isset($neptroskoviuk)) $neptroskoviuk=mysql_real_escape_string($neptroskoviuk);
-	if (isset($IDx)) $IDx=mysql_real_escape_string($IDx);
+	if (isset($brnarudzbenice)) $brnarudzbenice=mysqli_real_escape_string($mysqli,$brnarudzbenice);
+	if (isset($kursbanka)) $kursbanka=mysqli_real_escape_string($mysqli,$kursbanka);
+	if (isset($kurssred)) $kurssred=mysqli_real_escape_string($mysqli,$kurssred);
+	if (isset($kurscarine)) $kurscarine=mysqli_real_escape_string($mysqli,$kurscarine);
+	if (isset($transport)) $transport=mysqli_real_escape_string($mysqli,$transport);
+	if (isset($neptroskoviuk)) $neptroskoviuk=mysqli_real_escape_string($mysqli,$neptroskoviuk);
+	if (isset($IDx)) $IDx=mysqli_real_escape_string($mysqli,$IDx);
 	echo $sorterklik;
 	
 	if(isset($sorterklik)) {
@@ -42,8 +42,8 @@ if(isset($_POST) && !empty($_POST)) {
 	LEFT JOIN ctarife
 		ON proizvodi.cartar = ctarife.ID
 	ORDER BY proizvodi.sifra ASC';
-	$result=mysql_query($sql) or die;
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		foreach($row as $xx => $yy) {
 			$$xx=$yy;
 		}
@@ -116,11 +116,11 @@ if(isset($_POST) && !empty($_POST)) {
 
 	$dattime=date('G:i:s j.n.Y.');
 	$sql='SELECT ID FROM nabavka ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die;
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
-	$result = mysql_query("SHOW TABLE STATUS LIKE 'nabavka'");
-	$data = mysql_fetch_assoc($result);
+	$result = mysqli_query($mysqli,"SHOW TABLE STATUS LIKE 'nabavka'");
+	$data = $result->fetch_assoc();
 	$nextID = $data['Auto_increment'];
 	
 	if(isset($sorterklik)) $sorterklikx=explode(',',$sorterklik);
@@ -132,19 +132,19 @@ if(isset($_POST) && !empty($_POST)) {
 		$sklad=$_POST['delsklad'];
 		$proizvodi=array();
 		$sql1='SELECT proizvod FROM nabavkaitems WHERE nabavka="'.$del.'"';
-		$result=mysql_query($sql1) or die;
-		while($row=mysql_fetch_assoc($result)) {
+		$result=mysqli_query($mysqli,$sql1) or die;
+		while($row=$result->fetch_assoc()) {
 		$proizvodi[]=$row['proizvod'];
 		}
 		foreach($proizvodi as $oo) {
 		$sql1a='SELECT kolicina FROM nabavkaitems WHERE nabavka="'.$del.'" AND proizvod="'.$oo.'"';
-		$result=mysql_query($sql1a) or die;
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql1a) or die;
+		$row=$result->fetch_assoc();
 		$pstanjeit=$row['kolicina'];
 
 		$sql1b='SELECT kolicina FROM zalihe WHERE skladiste="'.$sklad.'" AND proizvod="'.$oo.'"';
-		$result=mysql_query($sql1b) or die;
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql1b) or die;
+		$row=$result->fetch_assoc();
 		$pstanjez=$row['kolicina'];
 		
 		$novakolicina=$pstanjez-$pstanjeit;
@@ -152,17 +152,17 @@ if(isset($_POST) && !empty($_POST)) {
 		$sql2a='UPDATE zalihe SET kolicina="'.$novakolicina.'" WHERE skladiste="'.$sklad.'" AND proizvod="'.$oo.'"';
 		
 		$sql2b='DELETE FROM nabavkaitems WHERE nabavka="'.$del.'" AND proizvod="'.$oo.'"';
-		mysql_query($sql2a) or die;
-		mysql_query($sql2b) or die;
+		mysqli_query($mysqli,$sql2a) or die;
+		mysqli_query($mysqli,$sql2b) or die;
 		}
 		
 		$sql3='DELETE FROM nabavka WHERE ID="'.$del.'"';
-		mysql_query($sql3);
+		mysqli_query($mysqli,$sql3);
 	}                                                        // Unos nove nabavke
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$sql='INSERT INTO nabavka (ncarine, datdostavnice, datprijemarobe, dobavljac, brnarudzbenice, skladiste, kursbanka, kurssred, kurscarine, transport, ulaznipdv, neptroskoviuk, placeno, ukfnc, ukpcb, ukrazlika, ukmarza, uneo) VALUES ("'.$ncarine.'", "'.$datdostavnice.'", "'.$datprijemarobe.'", "'.$dobavljac.'", "'.$brnarudzbenice.'", "'.$skladiste.'", "'.$kursbanka.'", "'.$kurssred.'", "'.$kurscarine.'", "'.$transport.'", "'.$ukkccarina.'", "'.$neptroskoviuk.'", "'.$placeno.'","'.$ukkfnc.'","'.$ukkpcb.'","'.$ukkrazlika.'","'.$ukkmarza.'","'.$user.' - '.$dattime.'")';
 		// $debug2=$sql.'; XX ;';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 		
 		foreach($sorterklikx as $zz) {
 			$nabavka=$nextID;
@@ -183,11 +183,11 @@ if(isset($_POST) && !empty($_POST)) {
 			
 			$sql2='INSERT INTO nabavkaitems (nabavka, idunabavci, proizvod, kolicina, cenaueur, transportpr, transportiznos, cstopa, neptroskovi, nabcena, razlika, mpbezpdv, marza, pdv, mpsapdv, uneo) VALUES ("'.$nabavka.'", "'.$idunabavci.'", "'.$proizvod.'", "'.$kolicina.'", "'.$cenaueur.'", "'.$transportpr.'", "'.$transportiznos.'", "'.$cstopa.'", "'.$neptroskovi.'", "'.$nabcena.'", "'.$razlika.'", "'.$mpbezpdv.'", "'.$marza.'", "'.$pdv.'", "'.$mpsapdv.'", "'.$user.' - '.$dattime.'")';
 			// $debug2.=$sql2.'; YY ;';
-			mysql_query($sql2) or die;
+			mysqli_query($mysqli,$sql2) or die;
 			
 			$sql3a='SELECT kolicina FROM zalihe WHERE skladiste="'.$skladiste.'" AND proizvod="'.$zz.'"';
-			$result=mysql_query($sql3a) or die;
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql3a) or die;
+			$row=$result->fetch_assoc();
 			$pstanje=$row['kolicina'];
 			
 			if (isset($pstanje)==false) {
@@ -198,7 +198,7 @@ if(isset($_POST) && !empty($_POST)) {
 				$sql3b='UPDATE zalihe SET kolicina="'.$nstanje.'" WHERE skladiste="'.$skladiste.'" AND proizvod="'.$proizvod.'"';
 			}
 			// $debug2.=$sql3b;
-			mysql_query($sql3b) or die;
+			mysqli_query($mysqli,$sql3b) or die;
 			
 		}
 
@@ -206,39 +206,39 @@ if(isset($_POST) && !empty($_POST)) {
 	else {
 	
 		$sql='SELECT menjali FROM nabavka WHERE ID="'.$IDx.'"';
-		$result=mysql_query($sql) or die;
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql) or die;
+		$row=$result->fetch_assoc();
 		$xmenjali=$row['menjali'];
 		$cid=$IDx;
 		
 		$sql='UPDATE nabavka SET ncarine="'.$ncarine.'", datdostavnice="'.$datdostavnice.'", datprijemarobe="'.$datprijemarobe.'", dobavljac="'.$dobavljac.'", brnarudzbenice="'.$brnarudzbenice.'", skladiste="'.$skladiste.'", kursbanka="'.$kursbanka.'", kurssred="'.$kurssred.'", kurscarine="'.$kurscarine.'", transport="'.$transport.'", ulaznipdv="'.$ukkccarina.'", neptroskoviuk="'.$neptroskoviuk.'", placeno="'.$placeno.'", ukfnc="'.$ukkfnc.'", ukpcb="'.$ukkpcb.'", ukrazlika="'.$ukkrazlika.'", ukmarza="'.$ukkmarza.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 		
 		$sviitemi=array();
 		$sql='SELECT proizvod FROM nabavkaitems WHERE nabavka="'.$IDx.'"';
-		$result=mysql_query($sql) or die;
-		while($row=mysql_fetch_assoc($result)) {
+		$result=mysqli_query($mysqli,$sql) or die;
+		while($row=$result->fetch_assoc()) {
 		$sviitemi[]=$row['proizvod'];
 		}
 		
 		foreach ($sviitemi as $hh) {
 			if (in_array($hh, $sorterklikx)==false) {
 				$sql1='SELECT kolicina FROM nabavkaitems WHERE nabavka="'.$IDx.'" AND proizvod="'.$hh.'"';
-				$result=mysql_query($sql1) or die;
-				$row=mysql_fetch_assoc($result);
+				$result=mysqli_query($mysqli,$sql1) or die;
+				$row=$result->fetch_assoc();
 				$pstanjen=$row['kolicina'];
 
 				$sql2='SELECT kolicina FROM zalihe WHERE skladiste="'.$skladiste.'" AND proizvod="'.$hh.'"';
-				$result=mysql_query($sql2) or die;
-				$row=mysql_fetch_assoc($result);
+				$result=mysqli_query($mysqli,$sql2) or die;
+				$row=$result->fetch_assoc();
 				$pstanjez=$row['kolicina'];
 				
 				$nstanje=$pstanjez-$pstanjen;
 				
 				$sql3='UPDATE zalihe SET kolicina="'.$nstanje.'" WHERE skladiste="'.$skladiste.'" AND proizvod="'.$hh.'"';
-				mysql_query($sql3) or die;
+				mysqli_query($mysqli,$sql3) or die;
 				$sql4='DELETE FROM nabavkaitems WHERE nabavka="'.$IDx.'" AND proizvod="'.$hh.'"';
-				mysql_query($sql4) or die;
+				mysqli_query($mysqli,$sql4) or die;
 			}
 		}
 
@@ -261,8 +261,8 @@ if(isset($_POST) && !empty($_POST)) {
 			$mpsapdv=${'pcena'.$zz};
 
 			$sql='SELECT kolicina, menjali FROM nabavkaitems WHERE nabavka="'.$IDx.'" AND proizvod="'.$zz.'"';
-			$result=mysql_query($sql) or die;
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$xxmenjali=$row['menjali'];
 			$pstanjen=$row['kolicina'];
 			
@@ -272,22 +272,22 @@ if(isset($_POST) && !empty($_POST)) {
 			else {
 			$sql2='UPDATE nabavkaitems SET idunabavci="'.$idunabavci.'", kolicina="'.$kolicina.'", cenaueur="'.$cenaueur.'", transportpr="'.$transportpr.'", transportiznos="'.$transportiznos.'", cstopa="'.$cstopa.'", neptroskovi="'.$neptroskovi.'", nabcena="'.$nabcena.'", razlika="'.$razlika.'", mpbezpdv="'.$mpbezpdv.'", marza="'.$marza.'", pdv="'.$pdv.'", mpsapdv="'.$mpsapdv.'", menjali="'.$xxmenjali.'; '.$user.' - '.$dattime.'" WHERE nabavka="'.$nabavka.'" AND proizvod="'.$proizvod.'"';
 			}
-			mysql_query($sql2) or die;
+			mysqli_query($mysqli,$sql2) or die;
 			
 			$sql3a='SELECT kolicina FROM zalihe WHERE skladiste="'.$skladiste.'" AND proizvod="'.$zz.'"';
-			$result=mysql_query($sql3a) or die;
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql3a) or die;
+			$row=$result->fetch_assoc();
 			$pstanjez=$row['kolicina'];
 			
 			if (isset($pstanjez)==false) {
 				$sql3b='INSERT INTO zalihe (skladiste, proizvod, kolicina, uneo) VALUES ("'.$skladiste.'", "'.$zz.'", "'.$kolicina.'", "'.$user.' - '.$dattime.'")';
-				mysql_query($sql3b) or die;
+				mysqli_query($mysqli,$sql3b) or die;
 			}
 			else {
 				if (($pstanjen==$kolicina)==false) {
 					$nstanje=$pstanjez-$pstanjen+$kolicina;
 					$sql3b='UPDATE zalihe SET kolicina="'.$nstanje.'" WHERE skladiste="'.$skladiste.'" AND proizvod="'.$proizvod.'"';
-					mysql_query($sql3b) or die;
+					mysqli_query($mysqli,$sql3b) or die;
 				}
 			}
 
@@ -459,8 +459,8 @@ elseif (isset($cid)) echo ',izmena('.$IDx.')';
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv` FROM brendovi ORDER BY `ID`";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -468,8 +468,8 @@ while($row=mysql_fetch_assoc($result)) {
 }
 $brendxx="";
 $sql="SELECT `ID`,`datprijemarobe` FROM nabavka ORDER BY `ID` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -493,11 +493,11 @@ while($row=mysql_fetch_assoc($result)) {
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM nabavka ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
-$result = mysql_query("SHOW TABLE STATUS LIKE 'nabavka'");
-$data = mysql_fetch_assoc($result);
+$result = mysqli_query($mysqli,"SHOW TABLE STATUS LIKE 'nabavka'");
+$data = $result->fetch_assoc();
 $nextID = $data['Auto_increment'];
 echo $nextID;
 }
@@ -532,8 +532,8 @@ echo $ID;
 		<select id="ydobavljac" type="text" name="dobavljac" class="iud" style="width:153px" >
 <?php
 $sql='SELECT ID, prezime, ime FROM partneri WHERE gpartnera="8" ORDER BY prezime, ime';
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$prezime=$row['prezime'];
 	$ime=$row['ime'];
@@ -553,8 +553,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<select id="yskladiste" type="text" name="skladiste" class="iud" style="width:153px" >
 <?php
 $sql='SELECT ID, naziv FROM skladista WHERE status="da" ORDER BY ID ASC';
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<option value="'.$ID.'">'.$naziv.'</option>';
@@ -567,8 +567,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<div class="iul">Kurs banke (EUR/RSD)</div>
 		<input id="ykursbanka" type="text" name="kursbanka" class="iud" value="<?php
 $sql='SELECT kcar, kbank, ksred FROM kurs ORDER BY datum DESC, ID DESC LIMIT 1';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}

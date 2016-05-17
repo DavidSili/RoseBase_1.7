@@ -59,27 +59,26 @@ td {
 </head>
 <body>
 <?php
-include 'config.php';
 $posebno = isset($_GET["posebno"]) ? $_GET["posebno"] : 0;
 $redova = isset($_GET["redova"]) ? $_GET["redova"] : 0;
 $redovi=explode(',',$redova);
 $brstranica=count($redovi);
 
 $sql="SELECT * FROM msklad WHERE `idmsklad`=$posebno LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }
 
 $sql="SELECT SUM(razlika) cnt FROM msklad WHERE idmsklad=$posebno AND skladiz > skladu";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $cnt1=$row['cnt'];
 
 $sql="SELECT SUM(razlika) cnt FROM msklad WHERE idmsklad=$posebno AND skladiz < skladu";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $cnt2=$row['cnt'];
 
 $ok="0";
@@ -88,26 +87,26 @@ if ($cnt1 == 0 OR $cnt2 == 0) $ok="1";
 else {
 	if ($cnt1>$cnt2) $sql="SELECT * FROM msklad WHERE `idmsklad`=$posebno AND skladiz > skladu LIMIT 1";
 	else $sql="SELECT * FROM msklad WHERE `idmsklad`=$posebno AND skladiz < skladu LIMIT 1";
-	$result=mysql_query($sql) or die;
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
 }
 
 $sql='SELECT naziv nskladiz FROM skladista WHERE ID="'.$skladiz.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $nskladiz=$row['nskladiz'];
 
 $sql='SELECT naziv nskladu FROM skladista WHERE ID="'.$skladu.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $nskladu=$row['nskladu'];
 $levibox='Međuskladišnica od '.$nskladiz.' prema '.$nskladu;
 $sql='SELECT SUM(razlika) kontkol FROM msklad WHERE idmsklad="'.$posebno.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $kontkol=$row['kontkol'];
 
 $datum=date('d.m.Y.',strtotime($datum));
@@ -120,8 +119,8 @@ if ($ok=="0") $sve.='<th>Transakcija</th>';
 $sve.'</tr>';
 $rb="1";
 $sql='SELECT msklad.skladiz skladizx, msklad.proizvod proizvod, proizvodi.naziv naziv, msklad.razlika kolicina FROM msklad LEFT JOIN proizvodi ON msklad.proizvod = proizvodi.sifra WHERE idmsklad="'.$posebno.'" ORDER BY msklad.ID ASC';
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -151,8 +150,8 @@ else {
 		$prosli=$xx;
 		$sql='SELECT msklad.proizvod proizvod, proizvodi.naziv naziv, msklad.razlika kolicina FROM msklad LEFT JOIN proizvodi ON msklad.proizvod = proizvodi.sifra WHERE idmsklad="'.$posebno.'" ORDER BY msklad.ID ASC LIMIT '.$staro.','.$yy;
 		}
-		$result=mysql_query($sql) or die;
-		while ($row=mysql_fetch_assoc($result)) {
+		$result=mysqli_query($mysqli,$sql) or die;
+		while ($row=$result->fetch_assoc()) {
 			foreach($row as $xx => $yy) {
 				$$xx=$yy;
 			}

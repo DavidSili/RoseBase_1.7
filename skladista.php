@@ -18,34 +18,34 @@ if(isset($_POST) && !empty($_POST)) {
 		$$xx=$yy;
 	}
 
-	if (isset($naziv)) $naziv=mysql_real_escape_string($naziv);
-	if (isset($opis)) $opis=mysql_real_escape_string($opis);
+	if (isset($naziv)) $naziv=mysqli_real_escape_string($mysqli,$naziv);
+	if (isset($opis)) $opis=mysqli_real_escape_string($mysqli,$opis);
 	
 	$dattime=date('G:i:s j.n.Y.');
 	$sql='SELECT ID FROM skladista ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die;
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
 	$nextID=$lastID+1;
 	
 	if (isset($_POST['del'])) {
 		$del=$_POST['del'];
 		$sql='DELETE FROM skladista WHERE ID="'.$del.'"';
-		mysql_query($sql);
+		mysqli_query($mysqli,$sql);
 	}
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$IDx="";
 		$sql='INSERT INTO skladista (naziv, oosoba, status, adresa, uneo) VALUES ("'.$naziv.'","'.$oosoba.'","'.$status.'","'.$adresa.'","'.$user.' - '.$dattime.'")';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 	else {
 		$sql='SELECT menjali FROM skladista WHERE ID="'.$IDx.'"';
-		$result=mysql_query($sql);
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql);
+		$row=$result->fetch_assoc();
 		$xmenjali=$row['menjali'];
 		
 		$sql='UPDATE skladista SET naziv="'.$naziv.'", oosoba="'.$oosoba.'", status="'.$status.'", adresa="'.$adresa.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 		$cid=$IDx;
 	}
 		
@@ -80,11 +80,11 @@ elseif (isset($cid)) echo ' onload="izmena('.$IDx.')"';
 		<input type="button" value="Novo skladište" style="width:100%;margin-top:5px" onclick="novo()"/>
 		<input type="button" value="Obriši" style="width:100%" onclick="delform()"/>
 		<div style="width:100%;border-bottom:1px solid #000;margin-bottom:5px"></div>
-		<div id="blacklink" style="font-size:12;overflow:auto">
+		<div id="blacklink" style="font-size:12pt;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv`,`status`, IF (`status`='da',1,2) AS statusx FROM skladista ORDER BY `statusx`,`naziv` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
@@ -104,8 +104,8 @@ echo '>'.$naziv.'</a><br/>';
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM skladista ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
 $ID=$row['ID']+1;
 echo $ID;
@@ -125,8 +125,8 @@ else echo '1';
 		<select id="yoosoba" type="text" name="oosoba" class="iud" style="width:153px" onfocus="adresa2()" onchange="adresa2()">
 <?php
 $sql='SELECT ID, ime, prezime FROM partneri ORDER BY prezime, ime';
-$result=mysql_query($sql) or die (mysql_query());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$ime=$row['ime'];
 	$prezime=$row['prezime'];

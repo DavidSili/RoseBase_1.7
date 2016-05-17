@@ -61,7 +61,6 @@ td {
 </head>
 <body>
 <?php
-include 'config.php';
 $posebno = isset($_GET["posebno"]) ? $_GET["posebno"] : 0;
 $redova = isset($_GET["redova"]) ? $_GET["redova"] : 0;
 $redovi=explode(',',$redova);

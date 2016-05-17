@@ -19,12 +19,12 @@ if(isset($_POST) && !empty($_POST)) {
 		$$xx=$yy;
 	}
 	
-	if (isset($brpracuna)) $brpracuna=mysql_real_escape_string($brpracuna);
-	if (isset($brracuna)) $brracuna=mysql_real_escape_string($brracuna);
-	if (isset($brracunau)) $brracunau=mysql_real_escape_string($brracunau);
-	if (isset($pozivnb)) $pozivnb=mysql_real_escape_string($pozivnb);
-	if (isset($IDx)) $IDx=mysql_real_escape_string($IDx);
-	if (isset($zauplatu)) $zauplatu=mysql_real_escape_string($zauplatu);
+	if (isset($brpracuna)) $brpracuna=mysqli_real_escape_string($mysqli,$brpracuna);
+	if (isset($brracuna)) $brracuna=mysqli_real_escape_string($mysqli,$brracuna);
+	if (isset($brracunau)) $brracunau=mysqli_real_escape_string($mysqli,$brracunau);
+	if (isset($pozivnb)) $pozivnb=mysqli_real_escape_string($mysqli,$pozivnb);
+	if (isset($IDx)) $IDx=mysqli_real_escape_string($mysqli,$IDx);
+	if (isset($zauplatu)) $zauplatu=mysqli_real_escape_string($mysqli,$zauplatu);
 	
 	$dattime=date('G:i:s j.n.Y.');
 	$svesifre=explode(',',$svesifre);
@@ -34,11 +34,11 @@ if(isset($_POST) && !empty($_POST)) {
 	// ----------------- Unos ------------------
 	
 	$sql='INSERT INTO prodaja (kupac, brpracuna, brracuna, brizvoda, rok, datprometa, nacdost, brracunau, pozivnb, skladiste, tisporuke, zauplatu, tip, uneo) VALUES ("175", "'.$brpracuna.'", "'.$brracuna.'", "'.$brizvoda.'", "'.$rok.'", "'.$datprometa.'", "1", "'.$brracunau.'", "'.$pozivnb.'", "2", "0.00", "'.$zauplatu.'", "3","'.$user.' - '.$dattime.'")';
-	mysql_query($sql) or die($sql.': '.mysql_error());
+	mysqli_query($mysqli,$sql) or die;
 	
 	$sql='SELECT ID FROM prodaja ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die(mysql_error());
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$prodaja=$row['ID'];
 	
 	foreach($svesifre as $zz) {
@@ -51,17 +51,17 @@ if(isset($_POST) && !empty($_POST)) {
 		$pdv=$mpsapdv-$mpbezpdv;
 		
 		$sql2='INSERT INTO prodajaitems (prodaja, iduprodaji, proizvod, kolicina, mpbezpdv, rabat, pdv, uneo) VALUES ("'.$prodaja.'", "'.$iduprodaji.'", "'.$proizvod.'", "'.$kolicina.'", "'.$mpbezpdv.'", "'.$rabat.'", "'.$pdv.'", "'.$user.' - '.$dattime.'")';
-	mysql_query($sql2) or die (mysql_error());
+	mysqli_query($mysqli,$sql2) or die;
 	}
 		
 	foreach($sviid as $pp) {
 	$sql='UPDATE prodaja SET konsignacija="" WHERE ID="'.$pp.'"';
-	mysql_query($sql) or die (mysql_error());
+	mysqli_query($mysqli,$sql) or die;
 	}
 
 	foreach($svekon as $oo) {
 	$sql='DELETE FROM msklad WHERE idmsklad="'.$oo.'"';
-	mysql_query($sql) or die (mysql_error());
+	mysqli_query($mysqli,$sql) or die;
 	}
 }
 
@@ -249,8 +249,8 @@ elseif (isset($cid)) echo ',izmena('.$IDx.')';
 		<div class="iul" style="width:35px">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM prodaja ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
 $ID=$row['ID']+1;
 echo $ID;
@@ -269,9 +269,9 @@ echo $ID;
 <?php
 $godina=date('Y');
 $sql='SELECT brpracuna FROM prodaja WHERE skladiste = "2" AND kupac <> "84" ORDER BY brpracuna DESC LIMIT 1';
-$result=mysql_query($sql)or die (mysql_error());
-if (mysql_num_rows($result)>0) {
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql)or die;
+if (mysqli_num_rows($result)>0) {
+while($row=$result->fetch_assoc()) {
 	$brpracuna=$row['brpracuna'];
 	$sgodina=substr($brpracuna, 0, -6);
 	if ($sgodina!=$godina) {
@@ -288,9 +288,9 @@ $npracun=$godina.'-00001';
 }
 
 $sql='SELECT brracuna FROM prodaja WHERE skladiste ="2" AND kupac <> "84" ORDER BY brracuna DESC LIMIT 1';
-$result=mysql_query($sql)or die (mysql_error());
-if (mysql_num_rows($result)>0) {
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql)or die;
+if (mysqli_num_rows($result)>0) {
+while($row=$result->fetch_assoc()) {
 	$brracuna=$row['brracuna'];
 	$sgodina=substr($brracuna, 0, -6);
 	if ($sgodina!=$godina) {
@@ -346,8 +346,8 @@ $datum=date('Y-m-d');
 	</div>
 <?php
 $sql='SELECT kbank FROM kurs ORDER BY datum DESC LIMIT 1';
-$result=mysql_query($sql) or die(mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $kurs=$row['kbank'];
 ?>
 	<div class="iur">
@@ -407,8 +407,8 @@ $kurs=$row['kbank'];
 <?php
 $ukpazar=0;
 $sql='SELECT prodaja.datprometa datum, prodaja.konsignacija konsignacija, prodaja.zauplatu zauplatu FROM prodaja INNER JOIN msklad ON prodaja.konsignacija = msklad.idmsklad WHERE prodaja.kupac="84" GROUP BY prodaja.konsignacija ORDER BY prodaja.datprometa DESC';
-$result=mysql_query($sql)or die (mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql)or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -439,8 +439,8 @@ echo ' <tfoot>
 <?php
 $ukprof=0;
 $sql='SELECT prodaja.brpracuna brpracuna, prodaja.konsignacija konsignacija, prodaja.zauplatu zauplatu FROM prodaja INNER JOIN msklad ON prodaja.konsignacija = msklad.idmsklad WHERE prodaja.brracuna = "" GROUP BY prodaja.konsignacija';
-$result=mysql_query($sql)or die (mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql)or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -470,8 +470,8 @@ echo ' <tfoot>
 <?php
 $ukfakt=0;
 $sql='SELECT prodaja.brracuna brracuna, prodaja.konsignacija konsignacija, prodaja.zauplatu zauplatu FROM prodaja INNER JOIN msklad ON prodaja.konsignacija = msklad.idmsklad WHERE prodaja.brracuna != "" GROUP BY prodaja.konsignacija';
-$result=mysql_query($sql)or die (mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql)or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}

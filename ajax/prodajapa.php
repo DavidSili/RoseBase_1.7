@@ -14,69 +14,69 @@ $passhtml=array();
 switch ($periodx) {
 	case 1:
 		$sql='SELECT COUNT(ID) pazar FROM prodaja WHERE brracuna IS NULL';
-		$result=mysql_query($sql) or die (mysql_error());
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql) or die;
+		$row=$result->fetch_assoc();
 		$pazara=$row['pazar'];
 
 		$sql='SELECT COUNT(ID) fakt FROM prodaja WHERE brracuna IS NOT NULL AND brracuna <>""';
-		$result=mysql_query($sql) or die (mysql_error());
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql) or die;
+		$row=$result->fetch_assoc();
 		$fakt=$row['fakt'];
 
 		$sql='SELECT COUNT(ID) prof FROM prodaja WHERE brpracuna IS NOT NULL AND brracuna =""';
-		$result=mysql_query($sql) or die (mysql_error());
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql) or die;
+		$row=$result->fetch_assoc();
 		$prof=$row['prof'];
 		break;
 	case 2:
 	switch ($izborx) {
 		case 1:
 			$sql='SELECT COUNT(ID) pazar FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brracuna IS NULL';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$pazara=$row['pazar'];
 			$fakt=0;
 			$prof=0;
 			break;
 		case 2:
 			$sql='SELECT COUNT(ID) fakt FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brracuna IS NOT NULL AND brracuna <>""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$fakt=$row['fakt'];
 			$pazara=0;
 			$prof=0;
 			break;
 		case 3:
 			$sql='SELECT COUNT(ID) prof FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brpracuna IS NOT NULL AND brracuna =""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$prof=$row['prof'];
 			$pazara=0;
 			$fakt=0;
 			break;
 		case 4:
 			$sql='SELECT COUNT(ID) pazar FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brracuna IS NULL';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$pazara=$row['pazar'];
 			$sql='SELECT COUNT(ID) fakt FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brracuna IS NOT NULL AND brracuna <>""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$fakt=$row['fakt'];
 			$prof=0;
 			break;
 		case 5:
 			$sql='SELECT COUNT(ID) pazar FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brracuna IS NULL';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$pazara=$row['pazar'];
 			$sql='SELECT COUNT(ID) fakt FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brracuna IS NOT NULL AND brracuna <>""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$fakt=$row['fakt'];
 			$sql='SELECT COUNT(ID) prof FROM prodaja WHERE YEAR(datprometa) = '.$godina.' AND MONTH(datprometa) = '.$mesec.' AND brpracuna IS NOT NULL AND brracuna =""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$prof=$row['prof'];
 			break;
 		}
@@ -85,51 +85,51 @@ switch ($periodx) {
 		switch ($izborx) {
 		case 1:
 			$sql='SELECT COUNT(ID) pazar FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brracuna IS NULL';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$pazara=$row['pazar'];
 			$fakt=0;
 			$prof=0;
 			break;
 		case 2:
 			$sql='SELECT COUNT(ID) fakt FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brracuna IS NOT NULL AND brracuna <>""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$fakt=$row['fakt'];
 			$pazara=0;
 			$prof=0;
 			break;
 		case 3:
 			$sql='SELECT COUNT(ID) prof FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brpracuna IS NOT NULL AND brracuna =""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$prof=$row['prof'];
 			$pazara=0;
 			$fakt=0;
 			break;
 		case 4:
 			$sql='SELECT COUNT(ID) pazar FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brracuna IS NULL';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$pazara=$row['pazar'];
 			$sql='SELECT COUNT(ID) fakt FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brracuna IS NOT NULL AND brracuna <>""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$fakt=$row['fakt'];
 			$prof=0;
 			break;
 		case 5:
 			$sql='SELECT COUNT(ID) pazar FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brracuna IS NULL';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$pazara=$row['pazar'];
 			$sql='SELECT COUNT(ID) fakt FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brracuna IS NOT NULL AND brracuna <>""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$fakt=$row['fakt'];
 			$sql='SELECT COUNT(ID) prof FROM prodaja WHERE datprometa BETWEEN "'.$datod.'" AND "'.$datdo.'" AND brpracuna IS NOT NULL AND brracuna =""';
-			$result=mysql_query($sql) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$prof=$row['prof'];
 			break;
 		}
@@ -188,8 +188,8 @@ switch ($periodx) {
 		}
 		break;
 }
-$result=mysql_query($sql) or die (mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -276,8 +276,8 @@ switch ($sortx) {
 if($smerx==1) $sql.='ASC';
 	else $sql.='DESC';
 
-$result=mysql_query($sql) or die (mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}

@@ -4,8 +4,8 @@ $posebno = isset($_GET["posebno"]) ? $_GET["posebno"] : 0;
 
 $imaproizvode=array();
 $sql="SELECT proizvod FROM zalihe WHERE skladiste=$posebno AND kolicina > 0";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	$proizvod=$row['proizvod'];
 	$imaproizvode[]=$proizvod;
 }
@@ -14,8 +14,8 @@ $sortostali="";
 $sorttu="";
 
 $sql="SELECT proizvodi.sifrakasa sifkas, proizvodi.sifra sifra, zalihe.kolicina kolicina, proizvodi.brend brend, proizvodi.naziv naziv FROM proizvodi LEFT JOIN zalihe ON proizvodi.sifra = zalihe.proizvod AND `skladiste`=$posebno ORDER BY proizvodi.sifrakasa ASC";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }

@@ -21,7 +21,7 @@ if(isset($_POST) && !empty($_POST)) {
 	$hash = hash('sha256', $salt.$hash);
 
 	$query='UPDATE users SET password="'.$hash.'", salt="'.$salt.'" WHERE username="'.$user.'"';
-	mysql_query($query);
+	mysqli_query($mysqli,$query);
 
 }
 ?>
@@ -49,8 +49,8 @@ if(isset($_POST) && !empty($_POST)) {
 <?php
 		echo '<div class="iur" style="margin-bottom:5px"><div class="iul" style="text-align:left"><b>Korisnik '.$user.':</b></div><div style="clear:both;"></div></div>';
 $sql="SELECT * FROM users";
-$result=mysql_query($sql);
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql);
+$row=$result->fetch_assoc();
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -72,8 +72,8 @@ switch ($funkcija) {
 		break;
 }
 $sql='SELECT ime FROM odredi WHERE ID="'.$zaodred.'"';
-$result=mysql_query($sql);
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql);
+$row=$result->fetch_assoc();
 echo '<div class="iur"><b>ime:</b> '.$name.'<br/><b>email:</b> '.$email.'<br/><b>funkcija u HISu:</b> '.$funkcija.'<br/><b>deo odreda:</b> '.$row['ime'].'</div>';
 ?>
 <br/><br/>

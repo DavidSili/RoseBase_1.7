@@ -8,7 +8,7 @@
 		exit;
 	}
 	else {
-	include 'config.php';
+	include '../config.php';
 	$level=$_SESSION['level'];
 	$user=$_SESSION['user'];
 	}
@@ -41,19 +41,18 @@ tfoot {
 </head>
 <body>
 <?php
-include 'config.php';
 $posebno = isset($_GET["posebno"]) ? $_GET["posebno"] : 0;
 
 $sql="SELECT * FROM prodaja WHERE `ID`=$posebno";
-$result=mysql_query($sql) or die (mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }
 
 $sql='SELECT SUM(kolicina) kontkol FROM prodajaitems WHERE prodaja="'.$posebno.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $kontkol=$row['kontkol'];
 
 $datprometa=date('d.m.Y.',strtotime($datprometa));
@@ -66,11 +65,11 @@ $poslednjibifr=substr($bifr, -1);
 if ($kontkol==1 OR ($kontkol>20 AND $poslednjikontkol==1)) $gramkontkol="predmet";
 else $gramkontkol="predmeta";
 
-echo '<table style="font-size:12;border-top-width: .9090;margin-top: 20px;font-size:12" border="1"><caption style="font-size:16;font-weight:bold;padding-bottom:5px">Izveštaj kase za: '.$datprometa.' firme Biofresh doo, Pančevo</caption><thead><th>Br.</th><th>Šifra kase</th><th>Šifra proizvoda</th><th>Proizvod</th><th>Kol.</th><th style="width:80px">MPC</th><th>Rabat</th><th style="width:80px">Za uplatu</th></thead><tfoot><td colspan="8" style="text-align:right">Ukupno <b>'.$kontkol.'</b> '.$gramkontkol.', <b>'.$bifr.'.</b> dnevni izveštaj., Vrednost: <b>'.$zauplatu.'</b></td></tfoot><tbody>';
+echo '<table style="font-size:12;border-top-width: .9090;margin-top: 20px;font-size:12pt" border="1"><caption style="font-size:16;font-weight:bold;padding-bottom:5px">Izveštaj kase za: '.$datprometa.' firme Biofresh doo, Pančevo</caption><thead><th>Br.</th><th>Šifra kase</th><th>Šifra proizvoda</th><th>Proizvod</th><th>Kol.</th><th style="width:80px">MPC</th><th>Rabat</th><th style="width:80px">Za uplatu</th></thead><tfoot><td colspan="8" style="text-align:right">Ukupno <b>'.$kontkol.'</b> '.$gramkontkol.', <b>'.$bifr.'.</b> dnevni izveštaj., Vrednost: <b>'.$zauplatu.'</b></td></tfoot><tbody>';
 
 $sql='SELECT prodajaitems.iduprodaji iduprodaji, prodajaitems.proizvod proizvod, prodajaitems.kolicina kolicina, prodajaitems.rabat rabat, proizvodi.naziv naziv, proizvodi.pcena pcena, proizvodi.sifrakasa sifkas FROM prodajaitems LEFT JOIN proizvodi ON prodajaitems.proizvod = proizvodi.sifra WHERE prodajaitems.prodaja="'.$posebno.'" ORDER BY prodajaitems.iduprodaji ASC';
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}

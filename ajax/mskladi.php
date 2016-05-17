@@ -10,8 +10,8 @@ $sort2="";
 
 $koluk=array();
 $sql="SELECT proizvod, sum(kolicina) kolicina FROM zalihe WHERE skladiste=$posebno1 OR skladiste=$posebno2 GROUP BY proizvod";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -20,8 +20,8 @@ while ($row=mysql_fetch_assoc($result)) {
 
 $kol1=array();
 $sql="SELECT proizvod, kolicina FROM zalihe WHERE skladiste=$posebno1";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -29,8 +29,8 @@ while ($row=mysql_fetch_assoc($result)) {
 }
 $kol2=array();
 $sql="SELECT proizvod, kolicina FROM zalihe WHERE skladiste=$posebno2";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -38,8 +38,8 @@ while ($row=mysql_fetch_assoc($result)) {
 }
 
 $sql="SELECT zalihe.proizvod, proizvodi.naziv FROM zalihe LEFT JOIN proizvodi ON proizvodi.sifra = zalihe.proizvod WHERE (zalihe.skladiste=$posebno1 OR zalihe.skladiste=$posebno2) AND kolicina > 0 GROUP BY zalihe.proizvod ORDER BY proizvodi.ID";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	$proizvod=$row['proizvod'];
 	$naziv=$row['naziv'];
 	

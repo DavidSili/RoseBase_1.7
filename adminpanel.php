@@ -28,15 +28,15 @@ if(isset($_POST) && !empty($_POST)) {
 	$salt = substr($salt, 0, 11);
 	$hash = hash('sha256', $salt.$hash);
 	$sql = 'SELECT * FROM users WHERE `username` = "'.$xusername.'"';
-	$result = mysql_query($sql) or die;
-	$usernejmovi=mysql_num_rows($result);
+	$result = mysqli_query($mysqli,$sql) or die;
+	$usernejmovi=mysqli_num_rows($mysqli,$result);
 	$sql = 'SELECT * FROM users WHERE `email` = "'.$xemail.'"';
-	$result = mysql_query($sql) or die;
-	$emailovi=mysql_num_rows($result);
+	$result = mysqli_query($mysqli,$sql) or die;
+	$emailovi=mysqli_num_rows($mysqli,$result);
 	if ($usernejmovi ==0 AND $emailovi ==0) {
 	
 		$query='INSERT INTO users (username, name, password, salt, level, email) VALUES ("'.$xusername.'","'.$xime.'","'.$hash.'","'.$salt.'","2","'.$xemail.'")';
-		mysql_query($query);
+		mysqli_query($mysqli,$query);
 	}
 	
 }

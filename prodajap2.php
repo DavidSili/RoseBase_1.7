@@ -94,16 +94,16 @@ td {
 <?php
 $gpartneraxx="";
 $sql="SELECT `ID`,`naziv` FROM gpartnera ORDER BY `ID`";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
 	$gpartnerax[$ID]=$naziv;
 }
 $sql="SELECT `ID`,`prezime`,`ime`,`gpartnera` FROM partneri WHERE gpartnera <> 8 ORDER BY `gpartnera` DESC,`prezime` ASC,`ime` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;

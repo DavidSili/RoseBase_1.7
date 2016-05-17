@@ -16,13 +16,13 @@ if (isset($_GET['register'])) {
 	$email=stripslashes($email);
 	$phone=stripslashes($phone);
 	$country=stripslashes($country);
-	$usersent=mysql_real_escape_string($usersent);
-	$passsent1=mysql_real_escape_string($passsent1);
-	$passsent2=mysql_real_escape_string($passsent2);
-	$name=mysql_real_escape_string($name);
-	$email=mysql_real_escape_string($email);
-	$phone=mysql_real_escape_string($phone);
-	$country=mysql_real_escape_string($country);
+	$usersent=mysqli_real_escape_string($mysqli,$usersent);
+	$passsent1=mysqli_real_escape_string($mysqli,$passsent1);
+	$passsent2=mysqli_real_escape_string($mysqli,$passsent2);
+	$name=mysqli_real_escape_string($mysqli,$name);
+	$email=mysqli_real_escape_string($mysqli,$email);
+	$phone=mysqli_real_escape_string($mysqli,$phone);
+	$country=mysqli_real_escape_string($mysqli,$country);
 	$confcode=md5(uniqid(rand(), true));
 	$confcode2=md5(uniqid(rand(), true));
 	if (($passsent1==$passsent2) AND ($usersent!="") AND ($passsent1!="") AND ($passsent2!="") AND ($name!="") AND ($email!="") AND ($phone!="") AND ($country!="")) {
@@ -37,15 +37,15 @@ if (isset($_GET['register'])) {
 	$hash = hash('sha256', $salt . $hash);
 $break=0;
 $sql = "SELECT * FROM users WHERE `username` = '$usersent'";
-$result = mysql_query($sql) or die;
-if (mysql_num_rows($result)>0) {
+$result = mysqli_query($mysqli,$sql) or die;
+if (mysqli_num_rows($result)>0) {
 	$break=1;
 	echo '<div style="background:#fff;-moz-border-radius: 7px;border-radius: 7px;border: 2px #333 solid;padding:5px;text-align:center;font-weight:bold;color:#d55">Već postoji ovo korisničko ime. Molimo vas izaberite neko drugo korisničko ime</div>';
 }
 
 $sql = "SELECT * FROM users WHERE `email` = '$email'";
-$result = mysql_query($sql) or die;
-if (mysql_num_rows($result)>0) {
+$result = mysqli_query($mysqli,$sql) or die;
+if (mysqli_num_rows($result)>0) {
 	$break=1;
 	echo '<div style="background:#fff;-moz-border-radius: 7px;border-radius: 7px;border: 2px #333 solid;padding:5px;text-align:center;font-weight:bold;color:#d55">Već postoji korisnik sa ovim e-mail-om. Molimo vas izaberite drugi e-mail, ili izaberite izaberite opciju da ste zaboravili šifru</div>';
 }
@@ -55,7 +55,7 @@ $query = "INSERT INTO users ( username, password, salt, confcode, confcode2, lev
         VALUES ( '$usersent' , '$hash' , '$salt' , '$confcode' , '$confcode2' , '0' , '$name' , '$email' , '$phone' , '$country' );";
 		
 		if ($break==0) {
-		$result=mysql_query($query) or die;
+		$result=mysqli_query($mysqli,$query) or die;
 
 		if($result){
 
@@ -88,7 +88,7 @@ $query = "INSERT INTO users ( username, password, salt, confcode, confcode2, lev
 		echo '<div style="background:#fff;-moz-border-radius: 7px;border-radius: 7px;border: 2px #333 solid;padding:5px;text-align:center">Nije moguće poslati link za potvrdu na vašu e-mail adresu.</div>';
 		}
 
-		mysql_close();
+		mysqli_close();
 		}
 
 	}

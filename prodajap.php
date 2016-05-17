@@ -97,8 +97,8 @@ $pre=date('Y-m-d',strtotime("-1 month"));
 $godinax="";
 $kalendar=array(1=>'Januar',2=>'Februar',3=>'Mart',4=>'April',5=>'Maj',6=>'Jun',7=>'Jul',8=>'Avgust',9=>'Septembar',10=>'Oktobar',11=>'Novembar',12=>'Decembar');
 $sql="SELECT month(datprometa) mesec, year(datprometa) godina FROM prodaja GROUP BY month(datprometa), year(datprometa) ORDER BY datprometa DESC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;

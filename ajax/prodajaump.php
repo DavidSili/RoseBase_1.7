@@ -8,8 +8,8 @@ $sorttu="";
 $imaproizvode=array();
 
 $sql="SELECT proizvod, max(nabcena) fnc FROM nabavkaitems GROUP BY proizvod";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	$proizvod=$row['proizvod'];
 	$fnc=$row['fnc'];
 	$finc[$proizvod]=$fnc;
@@ -17,14 +17,14 @@ while ($row=mysql_fetch_assoc($result)) {
 
 if ($posebno!="x") {
 $sql="SELECT datprometa, bifr FROM prodaja WHERE ID=$posebno";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $datprometa=$row['datprometa'];
 $bifr=$row['bifr'];
 
 $sql="SELECT proizvod FROM prodajaitems WHERE prodaja=$posebno";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	$proizvod=$row['proizvod'];
 	$imaproizvode[]=$proizvod;
 }
@@ -68,8 +68,8 @@ $bifr=1;
 	ORDER BY proizvodi.ID ASC';
 	}
 $debug=$sql;
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }

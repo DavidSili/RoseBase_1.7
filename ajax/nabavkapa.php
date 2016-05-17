@@ -6,20 +6,20 @@ $passhtml=array();
 
 if ($posebno!=0) $sql="SELECT * FROM nabavka WHERE `ID`=$posebno";
 else $sql="SELECT * FROM nabavka ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
 }
 $sql='SELECT ime, prezime FROM partneri WHERE ID="'.$dobavljac.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $dobavljac=$row['prezime'].' '.$row['ime'];
 
 $sql='SELECT naziv FROM skladista WHERE ID="'.$dobavljac.'"';
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 $skladiste=$row['naziv'];
 
 $datdostavnice=date('d.m.Y.',strtotime($datdostavnice));
@@ -35,8 +35,8 @@ $passhtml['info'].='<br/><b>Datum dostavnice: </b>'.$datdostavnice.'<br/><b>Datu
 $passhtml['sve']='<table style="font-size:12" border="1"><tr><th>ID u nabavci</th><th>Šifra</th><th>Količina</th><th>Nabavna cena u EUR</th><th>% trošk. trans.</th><th>Trošk. trans. po kom.</th><th>Carinska stopa</th><th>Nepr. trošk. po kom.</th><th>Finalna nabavna cena</th><th>Razlika</th><th>MP. cena bez PDVa</th><th>Marža</th><th>PDV</th><th>MP cena sa PDVom</th></tr>';
 
 $sql='SELECT * FROM nabavkaitems WHERE nabavka="'.$ID.'" ORDER BY idunabavci ASC';
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}

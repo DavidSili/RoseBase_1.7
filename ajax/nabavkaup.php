@@ -7,8 +7,8 @@ $imaproizvode=array();
 
 if ($posebno!="x") {
 $sql="SELECT proizvod FROM nabavkaitems WHERE nabavka=$posebno";
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 	$proizvod=$row['proizvod'];
 	$imaproizvode[]=$proizvod;
 }
@@ -50,8 +50,8 @@ else {
 		ON proizvodi.cartar = ctarife.ID
 	ORDER BY proizvodi.ID ASC";
 	}
-$result=mysql_query($sql) or die;
-while ($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while ($row=$result->fetch_assoc()) {
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
 }

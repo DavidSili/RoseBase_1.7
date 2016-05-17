@@ -18,31 +18,31 @@ if(isset($_POST) && !empty($_POST)) {
 		$$xx=$yy;
 	}
 
-	if (isset($brpracuna)) $brpracuna=mysql_real_escape_string($brpracuna);
-	if (isset($brracuna)) $brracuna=mysql_real_escape_string($brracuna);
-	if (isset($brracunau)) $brracunau=mysql_real_escape_string($brracunau);
-	if (isset($pozivnb)) $pozivnb=mysql_real_escape_string($pozivnb);
-	if (isset($IDx)) $IDx=mysql_real_escape_string($IDx);
-	if (isset($bezpopusta)) $bezpopusta=mysql_real_escape_string($bezpopusta);
-	if (isset($popust)) $popust=mysql_real_escape_string($popust);
-	if (isset($bezpdva)) $bezpdva=mysql_real_escape_string($bezpdva);
-	if (isset($iznospdv)) $iznospdv=mysql_real_escape_string($iznospdv);
-	if (isset($zauplatu)) $zauplatu=mysql_real_escape_string($zauplatu);
-	if (isset($ukkzarada)) $ukkzarada=mysql_real_escape_string($ukkzarada);
+	if (isset($brpracuna)) $brpracuna=mysqli_real_escape_string($mysqli,$brpracuna);
+	if (isset($brracuna)) $brracuna=mysqli_real_escape_string($mysqli,$brracuna);
+	if (isset($brracunau)) $brracunau=mysqli_real_escape_string($mysqli,$brracunau);
+	if (isset($pozivnb)) $pozivnb=mysqli_real_escape_string($mysqli,$pozivnb);
+	if (isset($IDx)) $IDx=mysqli_real_escape_string($mysqli,$IDx);
+	if (isset($bezpopusta)) $bezpopusta=mysqli_real_escape_string($mysqli,$bezpopusta);
+	if (isset($popust)) $popust=mysqli_real_escape_string($mysqli,$popust);
+	if (isset($bezpdva)) $bezpdva=mysqli_real_escape_string($mysqli,$bezpdva);
+	if (isset($iznospdv)) $iznospdv=mysqli_real_escape_string($mysqli,$iznospdv);
+	if (isset($zauplatu)) $zauplatu=mysqli_real_escape_string($mysqli,$zauplatu);
+	if (isset($ukkzarada)) $ukkzarada=mysqli_real_escape_string($mysqli,$ukkzarada);
 	
 	$dattime=date('G:i:s j.n.Y.');
 	$sql='SELECT ID FROM prodaja ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die(mysql_error());
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql);
+	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
-	$result = mysql_query("SHOW TABLE STATUS LIKE 'prodaja'");
-	$data = mysql_fetch_assoc($result);
+	$result = mysqli_query($mysqli,"SHOW TABLE STATUS LIKE 'prodaja'");
+	$data = $result->fetch_assoc();
 	$nextID = $data['Auto_increment'];
 	
 	if(isset($sorterklik)) $sorterklikx=explode(',',$sorterklik);
 	
-	$result = mysql_query("SHOW TABLE STATUS LIKE 'prodaja'");
-	$data = mysql_fetch_assoc($result);
+	$result = mysqli_query($mysqli,"SHOW TABLE STATUS LIKE 'prodaja'");
+	$data = $result->fetch_assoc();
 	$nextmsklad = $data['Auto_increment'];
 
 	// ----------------- Brisanje ------------------
@@ -52,40 +52,40 @@ if(isset($_POST) && !empty($_POST)) {
 		$proizvodi=array();
 
 		$sql='SELECT konsignacija FROM prodaja WHERE ID="'.$del.'"';
-		$result=mysql_query($sql) or die(mysql_error());
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql) or die;
+		$row=$result->fetch_assoc();
 		$konsignacija=$row['konsignacija'];
 		
 		$sql1='SELECT proizvod FROM prodajaitems WHERE prodaja="'.$del.'"';
-		$result=mysql_query($sql1) or die (mysql_error());
-		while($row=mysql_fetch_assoc($result)) {
+		$result=mysqli_query($mysqli,$sql1) or die;
+		while($row=$result->fetch_assoc()) {
 		$proizvodi[]=$row['proizvod'];
 		}
 		foreach($proizvodi as $oo) {
 			$sql1a='SELECT kolicina FROM prodajaitems WHERE prodaja="'.$del.'" AND proizvod="'.$oo.'"';
-			$result=mysql_query($sql1a) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql1a) or die;
+			$row=$result->fetch_assoc();
 			$pstanjeit=$row['kolicina'];
 
 			$sql1b='SELECT kolicina FROM zalihe WHERE skladiste="2" AND proizvod="'.$oo.'"';
-			$result=mysql_query($sql1b) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql1b) or die;
+			$row=$result->fetch_assoc();
 			$pstanjez=$row['kolicina'];
 			
 			$novakolicina=$pstanjez+$pstanjeit;
 			
 			$sql2a='UPDATE zalihe SET kolicina="'.$novakolicina.'" WHERE skladiste="2" AND proizvod="'.$oo.'"';
-			mysql_query($sql2a) or die (mysql_error());
+			mysqli_query($mysqli,$sql2a) or die;
 			
 			$sql2b='DELETE FROM prodajaitems WHERE prodaja="'.$del.'" AND proizvod="'.$oo.'"';
-			mysql_query($sql2b) or die (mysql_error());
+			mysqli_query($mysqli,$sql2b) or die;
 
 			$sql5='DELETE FROM msklad WHERE idmsklad="'.$konsignacija.'" AND proizvod="'.$oo.'"';
-			mysql_query($sql5) or die (mysql_error());
+			mysqli_query($mysqli,$sql5) or die;
 		}
 		
 		$sql3='DELETE FROM prodaja WHERE ID="'.$del.'"';
-		mysql_query($sql3);
+		mysqli_query($mysqli,$sql3) or die;
 		
 	}
 	
@@ -93,7 +93,7 @@ if(isset($_POST) && !empty($_POST)) {
 	
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$sql='INSERT INTO prodaja (kupac, brpracuna, brracuna, brizvoda, rok, datprometa, nacdost, brracunau, pozivnb, skladiste, tisporuke, bezpopusta, popust, bezpdva, iznospdv, zauplatu, zarada, konsignacija, uneo) VALUES ("'.$kupac.'", "'.$brpracuna.'", "'.$brracuna.'", "'.$brizvoda.'", "'.$rok.'", "'.$datprometa.'", "'.$nacdost.'", "'.$brracunau.'", "'.$pozivnb.'", "22", "'.$tisporuke.'", "'.$bezpopusta.'", "'.$popust.'", "'.$bezpdva.'", "'.$iznospdv.'", "'.$zauplatu.'", "'.$ukkzarada.'", "'.$nextmsklad.'","'.$user.' - '.$dattime.'")';
-		mysql_query($sql) or die($sql.': '.mysql_error());
+		mysqli_query($mysqli,$sql) or die;
 		
 		foreach($sorterklikx as $zz) {
 			$prodaja=$nextID;
@@ -106,20 +106,20 @@ if(isset($_POST) && !empty($_POST)) {
 			$zaradauklist=${'zaradauklist'.$zz};
 			
 			$sqls='INSERT INTO msklad (idmsklad, datum, skladiz, skladu, proizvod, razlika, uneo) VALUES ("'.$nextmsklad.'","'.$datprometa.'","2","22","'.$proizvod.'","'.$kolicina.'","'.$user.' - '.$dattime.'")';
-			mysql_query($sqls) or die (mysql_error());
+			mysqli_query($mysqli,$sqls) or die;
 		
 			$sql2='INSERT INTO prodajaitems (prodaja, iduprodaji, proizvod, kolicina, mpbezpdv, rabat, pdv, zarada, uneo) VALUES ("'.$prodaja.'", "'.$iduprodaji.'", "'.$proizvod.'", "'.$kolicina.'", "'.$mpbezpdv.'", "'.$rabat.'", "'.$pdv.'", "'.$zaradauklist.'", "'.$user.' - '.$dattime.'")';
-			mysql_query($sql2) or die (mysql_error());
+			mysqli_query($mysqli,$sql2) or die;
 			
 			$sql3a='SELECT kolicina FROM zalihe WHERE skladiste="2" AND proizvod="'.$proizvod.'"';
-			$result=mysql_query($sql3a) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql3a) or die;
+			$row=$result->fetch_assoc();
 			$pstanje=$row['kolicina'];
 			
 			$nstanje=$pstanje-$kolicina;
 			$sql3b='UPDATE zalihe SET kolicina="'.$nstanje.'" WHERE skladiste="2" AND proizvod="'.$proizvod.'"';
 
-			mysql_query($sql3b) or die (mysql_error());
+			mysqli_query($mysqli,$sql3b) or die;
 			
 		}
 
@@ -127,19 +127,19 @@ if(isset($_POST) && !empty($_POST)) {
 	else {
 	 // ----------------- Menjanje ------------------
 		$sql='SELECT menjali, konsignacija FROM prodaja WHERE ID="'.$IDx.'"';
-		$result=mysql_query($sql) or die(mysql_error());
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql) or die;
+		$row=$result->fetch_assoc();
 		$xmenjali=$row['menjali'];
 		$konsignacija=$row['konsignacija'];
 		$cid=$IDx;
 		
 		$sql='UPDATE prodaja SET kupac="'.$kupac.'", brpracuna="'.$brpracuna.'", brracuna="'.$brracuna.'", rok="'.$rok.'", datprometa="'.$datprometa.'", nacdost="'.$nacdost.'", brracunau="'.$brracunau.'", pozivnb="'.$pozivnb.'", skladiste="22", tisporuke="'.$tisporuke.'", bezpopusta="'.$bezpopusta.'", popust="'.$popust.'", bezpdva="'.$bezpdva.'", iznospdv="'.$iznospdv.'", zauplatu="'.$zauplatu.'", zarada="'.$ukkzarada.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysql_query($sql) or die($sql.': '.mysql_error());
+		mysqli_query($mysqli,$sql) or die;
 		
 		$sviitemi=array();
 		$sql='SELECT proizvod FROM prodajaitems WHERE prodaja="'.$IDx.'"';
-		$result=mysql_query($sql) or die($sql.': '.mysql_error());
-		while($row=mysql_fetch_assoc($result)) {
+		$result=mysqli_query($mysqli,$sql) or die;
+		while($row=$result->fetch_assoc()) {
 		$sviitemi[]=$row['proizvod'];
 		}
 		
@@ -150,25 +150,25 @@ if(isset($_POST) && !empty($_POST)) {
 				// Ako se briše jedan proizvod sa liste
 			
 				$sql1='SELECT kolicina FROM prodajaitems WHERE prodaja="'.$IDx.'" AND proizvod="'.$hh.'"';
-				$result=mysql_query($sql1) or die (mysql_error());
-				$row=mysql_fetch_assoc($result);
+				$result=mysqli_query($mysqli,$sql1) or die;
+				$row=$result->fetch_assoc();
 				$pstanjen=$row['kolicina'];
 
 				$sql2='SELECT kolicina FROM zalihe WHERE skladiste="2" AND proizvod="'.$hh.'"';
-				$result=mysql_query($sql2) or die (mysql_error());
-				$row=mysql_fetch_assoc($result);
+				$result=mysqli_query($mysqli,$sql2) or die;
+				$row=$result->fetch_assoc();
 				$pstanjez=$row['kolicina'];
 				
 				$nstanje=$pstanjez+$pstanjen;
 				
 				$sql3='UPDATE zalihe SET kolicina="'.$nstanje.'" WHERE skladiste="2" AND proizvod="'.$hh.'"';
-				mysql_query($sql3) or die (mysql_error());
+				mysqli_query($mysqli,$sql3) or die;
 
 				$sql4='DELETE FROM prodajaitems WHERE prodaja="'.$IDx.'" AND proizvod="'.$hh.'"';
-				mysql_query($sql4) or die (mysql_error());
+				mysqli_query($mysqli,$sql4) or die;
 
 				$sql5='DELETE FROM msklad WHERE idmsklad="'.$konsignacija.'" AND proizvod="'.$hh.'"';
-				mysql_query($sql5) or die (mysql_error());
+				mysqli_query($mysqli,$sql5) or die;
 			}
 		}
 		foreach ($sorterklikx as $zz) {
@@ -183,14 +183,14 @@ if(isset($_POST) && !empty($_POST)) {
 			$zaradauklist=${'zaradauklist'.$zz};
 
 			$sql='SELECT kolicina, menjali FROM prodajaitems WHERE prodaja="'.$IDx.'" AND proizvod="'.$zz.'"';
-			$result=mysql_query($sql) or die($sql.': '.mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$xxmenjali=$row['menjali'];
 			$pstanjen=$row['kolicina'];
 			
 			$sql='SELECT menjali FROM msklad WHERE idmsklad="'.$konsignacija.'" AND proizvod="'.$zz.'"';
-			$result=mysql_query($sql) or die($sql.': '.mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql) or die;
+			$row=$result->fetch_assoc();
 			$yymenjali=$row['menjali'];
 			
 			if (isset($pstanjen)==false) {
@@ -208,10 +208,10 @@ if(isset($_POST) && !empty($_POST)) {
 			
 				if ($kolicina=="0") {
 					$sql2='DELETE FROM prodajaitems WHERE prodaja="'.$prodaja.'" AND proizvod="'.$proizvod.'"';
-					mysql_query($sql2) or die (mysql_error());
+					mysqli_query($mysqli,$sql2) or die (mysql_error());
 
 					$sql2s='DELETE FROM msklad WHERE idmsklad="'.$konsignacija.'" AND proizvod="'.$proizvod.'"';
-					mysql_query($sql2s) or die (mysql_error());
+					mysqli_query($mysqli,$sql2s) or die (mysql_error());
 				}
 				else {
 					$sql2='UPDATE prodajaitems SET prodaja="'.$prodaja.'", iduprodaji="'.$iduprodaji.'", proizvod="'.$proizvod.'", kolicina="'.$kolicina.'", mpbezpdv="'.$mpbezpdv.'", rabat="'.$rabat.'", pdv="'.$pdv.'", zarada="'.$zaradauklist.'", menjali="'.$xxmenjali.'; '.$user.' - '.$dattime.'" WHERE prodaja="'.$prodaja.'" AND proizvod="'.$proizvod.'"';
@@ -219,17 +219,17 @@ if(isset($_POST) && !empty($_POST)) {
 					$sql2s='UPDATE msklad SET datum="'.$datprometa.'", razlika="'.$kolicina.'", menjali="'.$yymenjali.'; '.$user.' - '.$dattime.'" WHERE idmsklad="'.$konsignacija.'" AND proizvod="'.$proizvod.'"';
 				}
 			}
-			mysql_query($sql2) or die (mysql_error());
-			mysql_query($sql2s) or die (mysql_error());
+			mysqli_query($mysqli,$sql2) or die;
+			mysqli_query($mysqli,$sql2s) or die;
 			
 			$sql3a='SELECT kolicina FROM zalihe WHERE skladiste="2" AND proizvod="'.$proizvod.'"';
-			$result=mysql_query($sql3a) or die (mysql_error());
-			$row=mysql_fetch_assoc($result);
+			$result=mysqli_query($mysqli,$sql3a) or die;
+			$row=$result->fetch_assoc();
 			$pstanjez=$row['kolicina'];
 		
 			$nstanje=$pstanjez+$pstanjen-$kolicina;
 			$sql3b='UPDATE zalihe SET kolicina="'.$nstanje.'" WHERE skladiste="2" AND proizvod="'.$proizvod.'"';
-			mysql_query($sql3b) or die (mysql_error());
+			mysqli_query($mysqli,$sql3b) or die;
 
 		}
 	}
@@ -257,7 +257,7 @@ if(isset($_POST) && !empty($_POST)) {
 	margin: 0;
 	float: left;
 	overflow:auto;
-	font-size:12;
+	font-size:12pt;
 }
 #desnakolona li,
 #trecakolona li{
@@ -331,7 +331,7 @@ if(isset($_POST) && !empty($_POST)) {
 #tabbarlab {
 	height:21px;
 	width:1175px;
-	font-size:12;
+	font-size:12pt;
 	text-align:center;
 	border-bottom:5px solid #777;
 	font-weight:bold;
@@ -347,7 +347,7 @@ if(isset($_POST) && !empty($_POST)) {
 	padding-top:3px;
 	height:22px;
 	width:1175px;
-	font-size:12;
+	font-size:12pt;
 }
 #tabbaruk div {
 	text-align:right;
@@ -371,7 +371,7 @@ if(isset($_POST) && !empty($_POST)) {
 .idlist {width:20px;}
 .kolicinalist {
 	height:20px;
-	font-size:12;
+	font-size:12pt;
 }
 .nazivlist {
 	width:180px;
@@ -386,7 +386,7 @@ if(isset($_POST) && !empty($_POST)) {
 .pcenasplist {width:48px;}
 .rabatlist {
 	width:79px;
-	font-size:12;
+	font-size:12pt;
 	text-align:right;
 }
 .pdvlist {
@@ -427,11 +427,11 @@ elseif (isset($cid)) echo ',izmena('.$IDx.')';
 		<input type="button" value="Nova prodaja" style="width:100%;margin-top:5px" onclick="novo()"/>
 		<input type="button" value="Obriši" style="width:100%" onclick="delform()"/>
 		<div style="width:100%;border-bottom:1px solid #000;margin-bottom:5px"></div>
-		<div id="blacklink" style="font-size:12;overflow:auto">
+		<div id="blacklink" style="font-size:12pt;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv` FROM brendovi ORDER BY `ID`";
-$result=mysql_query($sql)or die (mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -439,8 +439,8 @@ while($row=mysql_fetch_assoc($result)) {
 }
 $brendxx="";
 $sql='SELECT ID, brpracuna, brracuna, skladiste FROM prodaja WHERE skladiste = "22" AND kupac <> "84" ORDER BY ID DESC';
-$result=mysql_query($sql)or die (mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -464,8 +464,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM prodaja ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
 $ID=$row['ID']+1;
 echo $ID;
@@ -483,8 +483,8 @@ echo $ID;
 		<select id="ykupac" type="text" name="kupac" class="iud" style="width:153px" >
 <?php
 $sql='SELECT partneri.ID ID, partneri.ime ime, partneri.prezime prezime, partneri.firma firma, gpartnera.ID posao FROM partneri LEFT JOIN gpartnera ON partneri.gpartnera = gpartnera.ID WHERE partneri.ID <> "84" ORDER BY partneri.prezime ASC, partneri.ime ASC';
-$result=mysql_query($sql)or die (mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$ime=$row['ime'];
 	$prezime=$row['prezime'];
@@ -500,9 +500,9 @@ while($row=mysql_fetch_assoc($result)) {
 <?php
 $godina=date('Y');
 $sql='SELECT brpracuna FROM prodaja WHERE skladiste = "22" AND kupac <> "84" ORDER BY brpracuna DESC LIMIT 1';
-$result=mysql_query($sql)or die (mysql_error());
-if (mysql_num_rows($result)>0) {
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+if (mysqli_num_rows($result)>0) {
+while($row=$result->fetch_assoc()) {
 	$brpracuna=$row['brpracuna'];
 	$sgodina=substr($brpracuna, 0, -6);
 	if ($sgodina!=$godina) {
@@ -519,9 +519,9 @@ $npracun=$godina.'-00001';
 }
 
 $sql='SELECT brracuna FROM prodaja WHERE skladiste ="22" AND kupac <> "84" ORDER BY brracuna DESC LIMIT 1';
-$result=mysql_query($sql)or die (mysql_error());
-if (mysql_num_rows($result)>0) {
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+if (mysqli_num_rows($result)>0) {
+while($row=$result->fetch_assoc()) {
 	$brracuna=$row['brracuna'];
 	$sgodina=substr($brracuna, 0, -6);
 	if ($sgodina!=$godina) {
@@ -643,24 +643,25 @@ $datum=date('Y-m-d');
 		</div>
 		<div id="tabbarlab">
 			<div style="width:25px;padding-top:3px">ID</div>
-			<div style="width:56px;padding-top:3px;font-size:10">Šifra u kasi</div>
+			<div style="width:56px;padding-top:3px;font-size:10pt">Šifra u kasi</div>
 			<div style="width:183px;padding-top:3px">Naziv</div>
-			<div style="width:37px;padding-top:5px;font-size:9">Komada</div>
-			<div style="width:27px;font-size:8;word-break:break-all;line-height:9px">Na<br/>lageru</div>
+			<div style="width:37px;padding-top:5px;font-size:9pt">Komada</div>
+			<div style="width:27px;font-size:8pt;word-break:break-all;line-height:9px">Na<br/>lageru</div>
 			<div style="width:51px">FNC</div>
-			<div style="width:51px;font-size:9;word-break:break-all;line-height:9px">Cena<br/>bez PDV</div>
+			<div style="width:51px;font-size:9pt;word-break:break-all;line-height:9px">Cena<br/>bez PDV</div>
 			<div style="width:51px">Zarada</div>
-			<div style="width:51px;font-size:9;line-height:9px">Realna marža</div>
-			<div style="width:51px;font-size:9;word-break:break-all;line-height:9px;padding-top:1px">Troškovi<br/>isporuke</div>
-			<div style="width:51px;font-size:9;line-height:9px">Cena<br/>sa PDV</div>
+			<div style="width:51px;font-size:9pt;line-height:9px">Realna marža</div>
+			<div style="width:51px;font-size:9pt;word-break:break-all;line-height:9px;padding-top:1px">Troškovi<br/>isporuke</div>
+			<div style="width:51px;font-size:9pt;line-height:9px">Cena<br/>sa PDV</div>
 			<div style="width:37px;padding-top:3px">Rabat</div>
 			<div style="width:33px;padding-top:3px">PDV</div>
-			<div style="width:59px;font-size:9;vertical-align:center">vrednost PDVa</div>
-			<div style="width:59px;font-size:9;vertical-align:center">Bez pop. sa PDVom</div>
-			<div style="width:59px;font-size:9;vertical-align:center;padding-top:5px">Popust</div>
-			<div style="width:59px;font-size:9;vertical-align:center">Sa pop. bez PDVa</div>
-			<div style="width:59px;font-size:9;vertical-align:center;padding-top:5px">Ukupna cena</div>
-			<div style="width:59px;font-size:9;vertical-align:center">Ukupna Zarada</div>
+			<div style="width:59px;font-size:9pt;vertical-align:middle">vrednost PDVa</div>
+			<div style="width:59px;font-size:9pt;vertical-align:middle">Bez pop. sa PDVom</div>
+			<div style="width:59px;font-size:9pt;vertical-align:middle;padding-top:5px">Popust</div>
+			<div style="width:59px;font-size:9pt;vertical-align:middle">Sa pop. bez PDVa</div>
+			<div style="width:59px;font-size:9pt;vertical-align:middle;padding-top:5px">Ukupna cena</div>
+			<div style="width:59px;font-size:9pt;vertical-align:middle">Ukupna Zarada</div>
+			<div style="width:59px;font-size:9pt;vertical-align:middle">Ukupna Zarada</div>
 			<div style="width:3px;background:#777;padding:0;border:0"></div>
 		</div>
 	</div>

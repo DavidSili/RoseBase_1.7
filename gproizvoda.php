@@ -18,34 +18,34 @@ if(isset($_POST) && !empty($_POST)) {
 		$$xx=$yy;
 	}
 
-	if (isset($naziv)) $naziv=mysql_real_escape_string($naziv);
-	if (isset($opis)) $opis=mysql_real_escape_string($opis);
+	if (isset($naziv)) $naziv=mysqli_real_escape_string($mysqli,$naziv);
+	if (isset($opis)) $opis=mysqli_real_escape_string($mysqli,$opis);
 	
 	$dattime=date('G:i:s j.n.Y.');
 	$sql='SELECT ID FROM gproizvoda ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die;
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
 	$nextID=$lastID+1;
 	
 	if (isset($_POST['del'])) {
 		$del=$_POST['del'];
 		$sql='DELETE FROM gproizvoda WHERE ID="'.$del.'"';
-		mysql_query($sql);
+		mysqli_query($mysqli,$sql);
 	}
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$IDx="";
 		$sql='INSERT INTO gproizvoda (naziv, opis, status, nadgrupa, uneo) VALUES ("'.$naziv.'","'.$opis.'","'.$status.'","'.$nadgrupa.'","'.$user.' - '.$dattime.'")';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 	else {
 		$sql='SELECT menjali FROM gproizvoda WHERE ID="'.$IDx.'"';
-		$result=mysql_query($sql);
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql);
+		$row=$result->fetch_assoc();
 		$xmenjali=$row['menjali'];
 		
 		$sql='UPDATE gproizvoda SET naziv="'.$naziv.'", opis="'.$opis.'", status="'.$status.'", nadgrupa="'.$nadgrupa.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 		
 }
@@ -83,8 +83,8 @@ elseif (isset($cid)) echo ' onload="izmena('.$IDx.')"';
 <?php
 $ngn=array(1 => "Nega kose", 2 => "Nega lica", 3 => "Nega tela", 4 => "Parfemi", 5 => "Setovi", 6 => "Ostalo");
 $sql="SELECT `nadgrupa`,`ID`,`naziv`,`status`, IF (`status`='da',1,2) AS statusx FROM gproizvoda ORDER BY `nadgrupa`,`statusx`,`naziv` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 foreach($row as $xx => $yy) {
 	$$xx=$yy;
@@ -107,8 +107,8 @@ $nadgrupax=$nadgrupa;
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM gproizvoda ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
 $ID=$row['ID']+1;
 echo $ID;

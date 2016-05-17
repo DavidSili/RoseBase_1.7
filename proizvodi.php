@@ -16,7 +16,7 @@
 	if (isset($_POST['del'])) {
 		$del=$_POST['del'];
 		$sql='DELETE FROM proizvodi WHERE ID="'.$del.'"';
-		mysql_query($sql);
+		mysqli_query($mysqli,$sql);
 	}
 elseif(isset($_POST) && !empty($_POST)) {
 	foreach($_POST as $xx => $yy) {
@@ -32,8 +32,8 @@ elseif(isset($_POST) && !empty($_POST)) {
 	$grupa2=explode(',',$grupa);
 	$svip="";
 	$sql='SELECT ID,nadgrupa FROM gproizvoda ORDER BY nadgrupa, ID';
-	$result=mysql_query($sql) or die($sql.': '.mysql_error());
-	while($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while($row=$result->fetch_assoc()) {
 		$ID=$row['ID'];
 		$nadgrupa=$row['nadgrupa'];
 		if (in_array($ID,$grupa2) AND empty($svip) == false) {
@@ -49,31 +49,31 @@ elseif(isset($_POST) && !empty($_POST)) {
 	$nadgrupa=substr($svip, 0, -1);
 		
 
-	if (isset($naziv)) $naziv=mysql_real_escape_string($naziv);
-	if (isset($link)) $link=mysql_real_escape_string($link);
+	if (isset($naziv)) $naziv=mysqli_real_escape_string($mysqli,$naziv);
+	if (isset($link)) $link=mysqli_real_escape_string($mysqli,$link);
 	$sql='SELECT ID FROM proizvodi ORDER BY ID DESC LIMIT 1';
-	$result=mysql_query($sql) or die($sql.': '.mysql_error());
-	$row=mysql_fetch_assoc($result);
+	$result=mysqli_query($mysqli,$sql) or die;
+	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
-	$result = mysql_query("SHOW TABLE STATUS LIKE 'proizvodi'");
-	$data = mysql_fetch_assoc($result);
+	$result = mysqli_query($mysqli,"SHOW TABLE STATUS LIKE 'proizvodi'");
+	$data = $result->fetch_assoc();
 	$nextID = $data['Auto_increment'];
 	
 	$dattime=date('G:i:s j.n.Y.');
 
 	if (isset($lastID)==false OR $IDx>$lastID) {
 		$sql='INSERT INTO proizvodi (sifra, sifrakasa, barcode, naziv, link, namgrupa, nadgrupa, grupa, brend, dobavljac, zapremina, tezinaneto, tezinabruto, kolpak, minzal, cartar, pdv, ncena, pcena, uneo) VALUES ("'.$sifra.'","'.$sifkas.'","'.$barcode.'","'.$naziv.'","'.$link.'","'.$namgrupa.'","'.$nadgrupa.'","'.$grupa.'","'.$brend.'","'.$dobavljac.'","'.$zapremina.'","'.$tezinaneto.'","'.$tezinabruto.'","'.$kolpak.'","'.$minzal.'","'.$cartar.'","'.$pdv.'","'.$ncena.'","'.$pcenas.'","'.$user.' - '.$dattime.'")';
-		mysql_query($sql) or die($sql.': '.mysql_error());
+		mysqli_query($mysqli,$sql) or die;
 	}
 	else {
 		$sql='SELECT menjali FROM proizvodi WHERE ID="'.$IDx.'"';
-		$result=mysql_query($sql);
-		$row=mysql_fetch_assoc($result);
+		$result=mysqli_query($mysqli,$sql);
+		$row=$result->fetch_assoc();
 		$xmenjali=$row['menjali'];
 		$cid=$IDx;
 		
 		$sql='UPDATE proizvodi SET sifra="'.$sifra.'", sifrakasa="'.$sifkas.'", barcode="'.$barcode.'", naziv="'.$naziv.'", link="'.$link.'", namgrupa="'.$namgrupa.'", nadgrupa="'.$nadgrupa.'", grupa="'.$grupa.'", brend="'.$brend.'", dobavljac="'.$dobavljac.'", zapremina="'.$zapremina.'", tezinaneto="'.$tezinaneto.'", tezinabruto="'.$tezinabruto.'", kolpak="'.$kolpak.'", minzal="'.$minzal.'", cartar="'.$cartar.'", pdv="'.$pdv.'", ncena="'.$ncena.'", pcena="'.$pcenas.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysql_query($sql) or die($sql.': '.mysql_error());
+		mysqli_query($mysqli,$sql) or die;
 	}
 		
 }
@@ -135,8 +135,8 @@ elseif (isset($cid)) echo ' onload="izmena('.$IDx.')"';
 		<div id="blacklink" >
 <?php
 $sql="SELECT `ID`,`naziv` FROM brendovi ORDER BY `ID`";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
 	}
@@ -144,8 +144,8 @@ while($row=mysql_fetch_assoc($result)) {
 }
 $brendxx="";
 $sql="SELECT `ID`,`naziv`,`brend` FROM proizvodi ORDER BY `brend`,`ID` ASC";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -169,11 +169,11 @@ while($row=mysql_fetch_assoc($result)) {
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM proizvodi ORDER BY `ID` DESC LIMIT 1";
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['ID'])) {
-$result = mysql_query("SHOW TABLE STATUS LIKE 'proizvodi'");
-$data = mysql_fetch_assoc($result);
+$result = mysqli_query($mysqli,"SHOW TABLE STATUS LIKE 'proizvodi'");
+$data = $result->fetch_assoc();
 $nextID = $data['Auto_increment'];
 echo $nextID;
 }
@@ -224,8 +224,8 @@ echo $nextID;
 		<select id="ybrend" type="text" name="brend" class="iud" style="width:153px" >
 <?php
 $sql='SELECT ID, naziv FROM brendovi ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<option value="'.$ID.'">'.$naziv.'</option>';
@@ -239,8 +239,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<select id="ydobavljac" type="text" name="dobavljac" class="iud" style="width:153px" >
 <?php
 $sql='SELECT ID, prezime, ime FROM partneri WHERE gpartnera="8" ORDER BY prezime, ime';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$prezime=$row['prezime'];
 	$ime=$row['ime'];
@@ -280,8 +280,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<select id="ycartar" type="text" name="cartar" class="iud" style="min-width:153px" >
 <?php
 $sql='SELECT ID, naziv, sifra FROM ctarife ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	$sifra=$row['sifra'];
@@ -298,8 +298,8 @@ while($row=mysql_fetch_assoc($result)) {
 	</div>
 	<input type="hidden" id="ykurs" value="<?php
 $sql='SELECT ksred FROM kurs ORDER BY ID DESC LIMIT 1';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ksred=$row['ksred'];
 	echo $ksred;
 }
@@ -332,8 +332,8 @@ while($row=mysql_fetch_assoc($result)) {
 			<div><b>Nega kose</b></div>
 <?php
 $sql='SELECT ID, naziv FROM gproizvoda WHERE nadgrupa="1" ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<div class="ckb"><input type="checkbox" name="sub'.$ID.'" id="sub'.$ID.'" value="'.$ID.'" /> '.$naziv.'</div>';
@@ -342,8 +342,8 @@ while($row=mysql_fetch_assoc($result)) {
 			<div><b>Nega lica</b></div>
 <?php
 $sql='SELECT ID, naziv FROM gproizvoda WHERE nadgrupa="2" ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<div class="ckb"><input type="checkbox" name="sub'.$ID.'" id="sub'.$ID.'" value="'.$ID.'" /> '.$naziv.'</div>';
@@ -352,8 +352,8 @@ while($row=mysql_fetch_assoc($result)) {
 			<div><b>Nega tela</b>
 <?php
 $sql='SELECT ID, naziv FROM gproizvoda WHERE nadgrupa="3" ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<div class="ckb"><input type="checkbox" name="sub'.$ID.'" id="sub'.$ID.'" value="'.$ID.'" /> '.$naziv.'</div>';
@@ -362,8 +362,8 @@ while($row=mysql_fetch_assoc($result)) {
 			<div><b>Parfemi</b></div>
 <?php
 $sql='SELECT ID, naziv FROM gproizvoda WHERE nadgrupa="4" ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<div class="ckb"><input type="checkbox" name="sub'.$ID.'" id="sub'.$ID.'" value="'.$ID.'" /> '.$naziv.'</div>';
@@ -372,8 +372,8 @@ while($row=mysql_fetch_assoc($result)) {
 			<div><b>Setovi</b></div>
 <?php
 $sql='SELECT ID, naziv FROM gproizvoda WHERE nadgrupa="5" ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<div class="ckb"><input type="checkbox" name="sub'.$ID.'" id="sub'.$ID.'" value="'.$ID.'" /> '.$naziv.'</div>';
@@ -382,8 +382,8 @@ while($row=mysql_fetch_assoc($result)) {
 			<div><b>Ostalo</b></div>
 <?php
 $sql='SELECT ID, naziv FROM gproizvoda WHERE nadgrupa="6" ORDER BY naziv';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
 	echo '<div class="ckb"><input type="checkbox" name="sub'.$ID.'" id="sub'.$ID.'" value="'.$ID.'" /> '.$naziv.'</div>';
@@ -391,8 +391,8 @@ while($row=mysql_fetch_assoc($result)) {
 
 $svi="";
 $sql='SELECT ID FROM gproizvoda';
-$result=mysql_query($sql) or die($sql.': '.mysql_error());
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$svi.=$ID.',';
 }

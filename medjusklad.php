@@ -35,8 +35,8 @@ if(isset($_POST) && !empty($_POST) AND $_POST['sorterklik1']==$_POST['sorterklik
 	$postojeci2=array();
 	
 	$sql='SELECT proizvod, kolicina FROM zalihe WHERE skladiste = "'.$skladiste1.'"';
-	$result=mysql_query($sql) or die;
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		foreach($row as $xx => $yy) {
 			$$xx=$yy;
 		}
@@ -44,8 +44,8 @@ if(isset($_POST) && !empty($_POST) AND $_POST['sorterklik1']==$_POST['sorterklik
 	}
 	
 	$sql='SELECT proizvod, kolicina FROM zalihe WHERE skladiste = "'.$skladiste2.'"';
-	$result=mysql_query($sql) or die;
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		foreach($row as $xx => $yy) {
 			$$xx=$yy;
 		}
@@ -58,19 +58,19 @@ if(isset($_POST) && !empty($_POST) AND $_POST['sorterklik1']==$_POST['sorterklik
 			if ($vrednost < $postojeci1[$sifra]) {
 				$razlika=$postojeci1[$sifra]-$vrednost;
 				$sql2='INSERT INTO msklad (idmsklad, datum, skladiz, skladu, proizvod, razlika, uneo) VALUES ("'.$IDx.'","'.$datbase.'","'.$skladiste1.'","'.$skladiste2.'","'.$sifra.'","'.$razlika.'","'.$user.' - '.$dattime.'")';
-				mysql_query($sql2) or die;
+				mysqli_query($mysqli,$sql2) or die;
 			}
 			elseif($vrednost > $postojeci1[$sifra]) {
 				$razlika=$vrednost-$postojeci1[$sifra];
 				$sql2='INSERT INTO msklad (idmsklad, datum, skladiz, skladu, proizvod, razlika, uneo) VALUES ("'.$IDx.'","'.$datbase.'","'.$skladiste2.'","'.$skladiste1.'","'.$sifra.'","'.$razlika.'","'.$user.' - '.$dattime.'")';
-				mysql_query($sql2) or die;
+				mysqli_query($mysqli,$sql2) or die;
 			}
 			
 		}
 		else {
 			$sql1='INSERT INTO zalihe (skladiste, proizvod, kolicina, uneo) VALUES ("'.$skladiste1.'","'.$sifra.'","'.$novo1[$sifra].'","'.$user.' - '.$dattime.'")';
 		}
-		mysql_query($sql1) or die;
+		mysqli_query($mysqli,$sql1) or die;
 	}
 	foreach($novo2 as $sifra => $vrednost) {
 		if (isset($postojeci2[$sifra])) {
@@ -79,15 +79,15 @@ if(isset($_POST) && !empty($_POST) AND $_POST['sorterklik1']==$_POST['sorterklik
 		else {
 			$sql='INSERT INTO zalihe (skladiste, proizvod, kolicina, uneo) VALUES ("'.$skladiste2.'","'.$sifra.'","'.$novo2[$sifra].'","'.$user.' - '.$dattime.'")';
 		}
-		mysql_query($sql) or die;
+		mysqli_query($mysqli,$sql) or die;
 	}
 	
 }
 
 	$svaskladista=array();
 	$sql='SELECT ID, naziv FROM skladista';
-	$result=mysql_query($sql) or die;
-	while ($row=mysql_fetch_assoc($result)) {
+	$result=mysqli_query($mysqli,$sql) or die;
+	while ($row=$result->fetch_assoc()) {
 		foreach($row as $xx => $yy) {
 			$$xx=$yy;
 		}
@@ -174,8 +174,8 @@ if(isset($_POST) && !empty($_POST) AND $_POST['sorterklik1']==$_POST['sorterklik
 		<div style="float:left;padding-top:4px;font-size:13">ID: </div>
 		<input id="yid" type="text" name="IDx" readonly style="background:#ccc;width:170px;margin-left:3px" value="<?php
 $sql="SELECT `idmsklad` FROM msklad ORDER BY `idmsklad` DESC LIMIT 1";
-$result=mysql_query($sql) or die;
-$row=mysql_fetch_assoc($result);
+$result=mysqli_query($mysqli,$sql) or die;
+$row=$result->fetch_assoc();
 if (isset($row['idmsklad'])) {
 $idmsklad=$row['idmsklad']+1;
 echo $idmsklad;
@@ -190,8 +190,8 @@ else echo '1';
 		<div style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT idmsklad, datum FROM msklad GROUP BY `idmsklad` ORDER BY `idmsklad` DESC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -211,8 +211,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<select id="yskladiste1" name="skladiste1" style="margin-bottom:2px;" onchange="izmena()" >
 <?php
 $sql="SELECT `ID`,`naziv` FROM skladista ORDER BY `naziv` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -231,8 +231,8 @@ while($row=mysql_fetch_assoc($result)) {
 		<select id="yskladiste2" name="skladiste2" style="margin-bottom:2px;" onchange="izmena()" >
 <?php
 $sql="SELECT `ID`,`naziv` FROM skladista ORDER BY `naziv` ASC";
-$result=mysql_query($sql) or die;
-while($row=mysql_fetch_assoc($result)) {
+$result=mysqli_query($mysqli,$sql) or die;
+while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
