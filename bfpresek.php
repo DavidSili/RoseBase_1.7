@@ -151,7 +151,7 @@ if(isset($_POST) && !empty($_POST)) {
 	top:86px;
 	left:335px;
 	bottom:0;
-	width:877px;
+	width:878px;
 	overflow-y:scroll;
 	border: 3px inset #aaa;
 	border-top:none;

@@ -161,7 +161,6 @@ if(isset($_POST) && !empty($_POST)) {
 	}                                                        // Unos nove nabavke
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$sql='INSERT INTO nabavka (ncarine, datdostavnice, datprijemarobe, dobavljac, brnarudzbenice, skladiste, kursbanka, kurssred, kurscarine, transport, ulaznipdv, neptroskoviuk, placeno, ukfnc, ukpcb, ukrazlika, ukmarza, uneo) VALUES ("'.$ncarine.'", "'.$datdostavnice.'", "'.$datprijemarobe.'", "'.$dobavljac.'", "'.$brnarudzbenice.'", "'.$skladiste.'", "'.$kursbanka.'", "'.$kurssred.'", "'.$kurscarine.'", "'.$transport.'", "'.$ukkccarina.'", "'.$neptroskoviuk.'", "'.$placeno.'","'.$ukkfnc.'","'.$ukkpcb.'","'.$ukkrazlika.'","'.$ukkmarza.'","'.$user.' - '.$dattime.'")';
-		// $debug2=$sql.'; XX ;';
 		mysqli_query($mysqli,$sql) or die;
 		
 		foreach($sorterklikx as $zz) {
@@ -419,7 +418,7 @@ if(isset($_POST) && !empty($_POST)) {
 	left:535px;
 	bottom:0;
 	width:629px;
-	overflow:scroll;
+	overflow-y:scroll;
 	border: 3px inset #aaa;
 }
 .idlist {width:20px;}
@@ -634,8 +633,6 @@ $row=$result->fetch_assoc();
 
 <div class="connectedSortable" id="trecakolona" onmouseup="sorter()" onmouseout="sorter()">
 </div>
-<div id="debug1"></div>
-<div id="debug2"><?php if (isset($debug2)) echo $debug2; ?></div>
 <script type="text/javascript">
 $(function()
 	{
@@ -690,7 +687,6 @@ function izmena(posebno)
 		$.getJSON('ajax/nabavkausp.php', {posebno: posebno}, function(data) {
 			$('#trecakolona').html(data.ysortostali);
 			$('#desnakolona').html(data.ysorttu);
-			$('#debug1').html(data.ydebug);
 			sorter();
 			var sortedIDs = $( "#desnakolona" ).sortable( "toArray" );
 			$.each(sortedIDs, function(index, value) {
@@ -705,7 +701,6 @@ function proizvodi(xx)
 		$.getJSON('ajax/nabavkausp.php', {posebno: xx}, function(data) {
 			$('#trecakolona').html(data.ysortostali);
 			$('#desnakolona').html(data.ysorttu);
-			$('#debug1').html(data.ydebug);
 		});
 	}
 function sorter()
