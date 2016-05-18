@@ -8,7 +8,7 @@ $passkey=mysqli_real_escape_string($mysqli,$passkey);
 $sql="SELECT * FROM users WHERE confcode ='$passkey'";
 $result=mysqli_query($mysqli,$sql) or die;
 if($result){
-	$count=mysql_num_rows($result);
+	$count=mysqli_num_rows($result);
 	if($count==1){
 		$row=$result->fetch_assoc();
 		$ID=$row['ID'];

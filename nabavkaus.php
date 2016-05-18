@@ -375,7 +375,7 @@ if(isset($_POST) && !empty($_POST)) {
 }
 #trecakolona {
 	position:absolute;
-	top:347px;
+	top:302px;
 	left:205px;
 	bottom:5px;
 	width:320px;
@@ -451,12 +451,13 @@ elseif (isset($cid)) echo ',izmena('.$IDx.')';
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;width:190px">
 		<input id="unosbtn" type="submit" value="Unesi" style="width:100%;height:20px" />
 		<input type="button" value="Nova nabavka" style="width:100%;margin-top:5px" onclick="novo()"/>
 		<input type="button" value="Obriši" style="width:100%" onclick="delform()"/>
 		<div style="width:100%;border-bottom:1px solid #000;margin-bottom:5px"></div>
-		<div id="blacklink" style="font-size:12;overflow:auto">
+		<div style="position:absolute;top:70px;left:0px;width:190px;bottom:0px;overflow-y:auto;">
+			<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv` FROM brendovi ORDER BY `ID`";
 $result=mysqli_query($mysqli,$sql) or die;
@@ -478,17 +479,18 @@ while($row=$result->fetch_assoc()) {
 	echo '<a href="#" onclick="izmena('.$ID.')">'.$ID.' - '.$datprijemarobe.'</a><br/>';
 }
 ?>
+			</div>
 		</div>
 	</div>
-<div style="width:165px;top:27px;left:205px;position:absolute;height:315px;background:#fff;opacity:0.5">
+<div style="width:165px;top:27px;left:205px;position:absolute;height:270px;background:#fff;opacity:0.5">
 </div>
 <div style="position:absolute;top:32px;left:535px;width:629px;height:50px;background:#fff">
 </div>
 <div style="position:absolute;top:83px;left:535px;width:629px;bottom:0;background:#fff;opacity:0.8">
 </div>
-<div style="width:325px;top:347px;left:205px;position:absolute;bottom:0;background:#fff;opacity:0.5">
+<div style="width:325px;top:302px;left:205px;position:absolute;bottom:0;background:#fff;opacity:0.5">
 </div>
-<div class="wrap" style="position:absolute;top:32px;left:200px;width:330px;height:300px">
+<div class="wrap" style="position:absolute;top:32px;left:200px;width:330px;height:267px">
 	<div class="iur">
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
@@ -610,7 +612,7 @@ $row=$result->fetch_assoc();
 		<div id="tabbaruk">
 			<div style="color:#fff;background:#777">Ukupno stavki: </div>
 			<div style="width:24px" id="ukstavki">0</div>
-			<div style="color:#fff;background:#777;margin-left:229px">Ukupno: </div>
+			<div style="color:#fff;background:#777;margin-left:226px">Ukupno: </div>
 			<div style="width:37px" id="ukkutija">0</div>
 			<div style="width:37px" id="ukpredmeta">0</div>
 			<div style="margin-left:50px;width:68px" id="ukkcena">0</div>

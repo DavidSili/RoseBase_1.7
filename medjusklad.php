@@ -168,11 +168,11 @@ if(isset($_POST) && !empty($_POST) AND $_POST['sorterklik1']==$_POST['sorterklik
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;width:190px">
 		<input id="resetbtn" type="reset" value="Novo međuskladištenje" style="width:100%;height:20px;margin-bottom:2px;" />
-	<div class="iur" style="margin-bottom:2px;">
-		<div style="float:left;padding-top:4px;font-size:13">ID: </div>
-		<input id="yid" type="text" name="IDx" readonly style="background:#ccc;width:170px;margin-left:3px" value="<?php
+		<div class="iur" style="margin-bottom:2px;">
+			<div style="float:left;padding-top:4px;font-size:13">ID: </div>
+			<input id="yid" type="text" name="IDx" readonly style="background:#ccc;width:170px;margin-left:3px" value="<?php
 $sql="SELECT `idmsklad` FROM msklad ORDER BY `idmsklad` DESC LIMIT 1";
 $result=mysqli_query($mysqli,$sql) or die;
 $row=$result->fetch_assoc();
@@ -183,11 +183,12 @@ echo $idmsklad;
 else echo '1';
 
 		?>"/>
-		<div style="clear:both;"></div>
-	</div>
+			<div style="clear:both;"></div>
+		</div>
 		<input id="unosbtn" type="submit" value="Zapamti novo stanje" style="width:100%;height:20px" />
 		<div style="width:100%;border-bottom:1px solid #000;margin:2px 0"></div>
-		<div style="font-size:12;overflow:auto">
+		<div style="position:absolute;top:70px;left:0px;width:190px;bottom:0px;overflow-y:auto;">
+			<div style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT idmsklad, datum FROM msklad GROUP BY `idmsklad` ORDER BY `idmsklad` DESC";
 $result=mysqli_query($mysqli,$sql) or die;
@@ -200,6 +201,7 @@ while($row=$result->fetch_assoc()) {
 	echo '<div>'.$idmsklad.' - '.$datum.'</div>';
 	}
 ?>
+			</div>
 		</div>
 	</div>
 <div id="bgn1" style="width:480px;top:27px;left:210px;position:absolute;bottom:0;background:#fff;opacity:0.6">

@@ -424,13 +424,14 @@ elseif (isset($cid)) echo ',izmena('.$IDx.')';
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;overflow-y:auto;width:190px">
 		<input id="unosbtn" type="submit" value="Unesi" style="width:100%;height:20px" />
 		<input type="button" value="Nova prodaja" style="width:100%;margin-top:5px" onclick="novo()"/>
 		<input type="button" value="Obriši" style="width:100%" onclick="delform()"/>
 		<input type="hidden" name="sorterklik" id="sorterklik" />
 		<div style="width:100%;border-bottom:1px solid #000;margin-bottom:5px"></div>
-		<div id="blacklink" style="font-size:12;overflow:auto">
+		<div style="position:absolute;top:70px;left:0px;width:190px;bottom:0px;overflow-y:auto;">
+			<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv` FROM brendovi ORDER BY `ID`";
 $result=mysqli_query($mysqli,$sql)or die;
@@ -453,6 +454,7 @@ while($row=$result->fetch_assoc()) {
 	echo '<a href="#" onclick="izmena('.$ID.',2)">'.$datum.'</a><br/>';
 }
 ?>
+			</div>
 		</div>
 	</div>
 <div style="width:165px;top:27px;left:205px;position:absolute;height:183px;background:#fff;opacity:0.5">
@@ -532,8 +534,8 @@ echo $ID;
 		<div id="tabbaruk">
 			<div style="color:#fff;background:#777">Ukupno stavki: </div>
 			<div style="width:24px" id="ukstavki">0</div>
-			<div style="width:37px;margin-left:98px" id="ukpredmeta">0</div>
-			<div style="width:59px;margin-left:522px;" id="ukkpdv">0.00</div>
+			<div style="width:37px;margin-left:160px" id="ukpredmeta">0</div>
+			<div style="width:59px;margin-left:457px;" id="ukkpdv">0.00</div>
 			<div style="width:59px;" id="ukkbezpopsapdv">0.00</div>
 			<div style="width:59px;" id="ukkpopust">0.00</div>
 			<div style="width:59px;" id="ukksapopbezpdv">0.00</div>
@@ -570,9 +572,6 @@ echo $ID;
 <div class="connectedSortable" id="trecakolona" onmouseup="sorter()" onmouseout="sorter()">
 </div>
 <script type="text/javascript">
-var viewportheight = document.documentElement.clientHeight;
-document.getElementById("blacklink").style.height=(viewportheight-118)+'px';
-
 $(function()
 	{
 		$( "#desnakolona, #trecakolona" ).sortable({

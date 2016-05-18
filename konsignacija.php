@@ -36,9 +36,10 @@
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;width:190px">
 		<div style="width:100%;border-bottom:1px solid #000;margin-bottom:5px;text-align:center;font-weight:bold">Postojeći unosi</div>
-		<div id="blacklink" style="font-size:12;overflow:auto">
+		<div style="position:absolute;top:24px;left:0px;width:190px;bottom:0px;overflow-y:auto;">
+			<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql="SELECT `ID`,`naziv` FROM skladista ORDER BY `ID` DESC";
 $result=mysqli_query($mysqli,$sql) or die;
@@ -50,6 +51,7 @@ while($row=$result->fetch_assoc()) {
 	echo '<a href="ajax/konsignacijapa.php?posebno='.$ID.'&specifikacija=00000&redova=0" target="_blank">'.$naziv.'</a><br/>';
 }
 ?>
+			</div>
 		</div>
 	</div>
 </body>

@@ -86,11 +86,13 @@ td {
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;width:190px">
 		<div style="width:100%;border-bottom:1px solid #000;text-align:center;font-weight:bold">Postojeći partneri</div>
-		<div id="blacklink" style="font-size:12;overflow:auto">
-		<div style="width:100%;border-bottom:1px solid #000;padding: 3px 0px;margin-bottom:3px"><input type="checkbox" name="prof" id="prof" checked="checked" style="margin: 3px 3px 0px 4px" />Profakture</div>
-		<center><a href="#" onclick="prikaz('x')" style="font-weight:bold">Svi partneri</a></center>
+		<input type="checkbox" name="prof" id="prof" checked="checked" style="margin: 3px 3px 0px 4px"/><span style="font-size:9pt;font-weight:bold">Profakture</span></div>
+		<div style="position:absolute;top:70px;left:5px;width:190px;bottom:5px;overflow-y:auto;border-top:1px solid #000;">
+			<div id="blacklink" style="font-size:12;overflow:auto">
+			<div style="width:100%;border-bottom:1px solid #000;padding: 3px 0px;margin-bottom:3px">
+			<center><a href="#" onclick="prikaz('x')" style="font-weight:bold">Svi partneri</a></center>
 <?php
 $gpartneraxx="";
 $sql="SELECT `ID`,`naziv` FROM gpartnera ORDER BY `ID`";
@@ -115,6 +117,7 @@ while($row=$result->fetch_assoc()) {
 	$gpartneraxx=$gpartnera;
 }
 ?>
+			</div>
 		</div>
 	</div>
 <div style="position:absolute;top:28px;left:205px;right:0;bottom:0;background:#fff;opacity:0.8">

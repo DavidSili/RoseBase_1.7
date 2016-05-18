@@ -202,7 +202,7 @@ $zauplatu=number_format($zauplatu, 2, '.', ',');
 $popust=number_format($popust, 2, '.', ',');
 $zarada=number_format($zarada, 2, '.', ',');
 $procenat=number_format($procenat, 2, '.', ',');
-$passhtml['info']='<div style="width:110px;float:left;font-weight:bold">Br. faktura:<br/>Br. profaktura<br/>Br. dnevnih pazara:<br/>Bez PDVa:<br/>Bez popusta:</div><div style="width:80px;float:left;text-align:right;margin-right:10px;padding-right:10px;border-right: solid 1px #000">'.$fakt.'<br/>'.$prof.'<br/>'.$pazara.'<br/>'.$bezpdva.'<br/>'.$bezpopusta.'</div><div style="width:80px;float:left;font-weight:bold">Iznos PDVa:<br/>Uplaćeno:<br/>Popust:<br/>Zarada:<br/>Procenat:</div><div style="width:80px;float:left;text-align:right">'.$iznospdv.'<br/>'.$zauplatu.'<br/>'.$popust.'<br/>'.$zarada.'<br/>'.$procenat.' %</div>';
+$passhtml['info']='<div style="width:115px;float:left;font-weight:bold">Br. faktura:<br/>Br. profaktura<br/>Br. dnevnih pazara:<br/>Bez PDVa:<br/>Bez popusta:</div><div style="width:80px;float:left;text-align:right;margin-right:10px;padding-right:10px;border-right: solid 1px #000">'.$fakt.'<br/>'.$prof.'<br/>'.$pazara.'<br/>'.$bezpdva.'<br/>'.$bezpopusta.'</div><div style="width:80px;float:left;font-weight:bold">Iznos PDVa:<br/>Uplaćeno:<br/>Popust:<br/>Zarada:<br/>Procenat:</div><div style="width:80px;float:left;text-align:right">'.$iznospdv.'<br/>'.$zauplatu.'<br/>'.$popust.'<br/>'.$zarada.'<br/>'.$procenat.' %</div>';
 
 $passhtml['sve']='<table style="font-size:12" border="1"><tr><th>Šifra</th><th>Šifra u kasi</th><th>Vrsta robe</th><th>Količina</th></tr>';
 switch ($periodx) {

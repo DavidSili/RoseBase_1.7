@@ -27,7 +27,6 @@
 		</li>
 		<li><a href="zalihe.php">Skladište</a>
 			<ul>
-				<li><a href="zalihe.php">Stanje zaliha</a></li>
 				<li><a href="konsignacija.php">Konsignacija</a></li>
 				<li><a href="konsignacija2.php" title="За Префърцунените">Konsignacija 2</a></li>
 				<li><a href="medjusklad.php">Međuskladišnice</a></li>
@@ -61,7 +60,6 @@
 				<li><a href="hrongrafikoni.php">Hronološki grafikoni</a></li>
 				<li><a href="prodajap2.php">Pregled po partnerima</a></li>
 				<li><a href="poproizvodima.php">Po proizvodima</a></li>
-				<li><a href="razlikapopisa.php">Razlika u popisu robe</a></li>
 			</ul>
 		</li>
 <?php if ($level>3) echo '<li><a href="adminpanel.php">Admin panel</a></li>'; ?>

@@ -108,8 +108,8 @@ elseif(isset($_POST) && !empty($_POST)) {
 	position:absolute;
 	left:0;
 	bottom:0;
-	top:80px;
-	width:190px;
+	top:70px;
+	width:185px;
 	overflow-y:auto;
 	overflow-x:hidden;
 	font-size:12;
@@ -162,7 +162,7 @@ while($row=$result->fetch_assoc()) {
 	</div>
 <div style="width:180px;top:27px;left:210px;position:absolute;bottom:0;background:#fff;opacity:0.5">
 </div>
-<div style="width:180px;top:27px;left:560px;position:absolute;bottom:0;background:#fff;opacity:0.5">
+<div style="width:210px;top:27px;left:560px;position:absolute;bottom:0;background:#fff;opacity:0.5">
 </div>
 <div class="wrap" style="position:absolute;top:32px;left:220px;width:800px">
 	<div class="iur">
@@ -326,9 +326,9 @@ while($row=$result->fetch_assoc()) {
 		<div style="clear:both;"></div>
 	</div>
 </div>
-<div class="wrap" id="desnakolona" style="position:absolute;top:32px;left:565px;width:400px">
-	<div class="iur">
-		<div class="iul" id="dkolona"><center><b>Grupa proizvoda</b></center><br/>
+<div class="wrap" id="desnakolona" style="position:absolute;top:32px;left:565px;bottom:5px;width:200px">
+	<div class="iur" style="position:absolute;left:0;top:0;bottom:0;overflow-y:auto;">
+		<div class="iul" id="dkolona"><div style="font-weight:bold;text-align:center;">Grupa proizvoda</div>
 			<div><b>Nega kose</b></div>
 <?php
 $sql='SELECT ID, naziv FROM gproizvoda WHERE nadgrupa="1" ORDER BY naziv';

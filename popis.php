@@ -101,11 +101,11 @@ if(isset($_POST) && !empty($_POST)) {
 <style type="text/css">
 #container {
 	position:absolute;
-	top:43px;
+	top:30px;
 	bottom:0px;
 	left:536px;
 	width:415px;
-	padding:5px;
+	padding:0 5px 5px 5px;
 	font-size:12;
 	overflow:auto;
 }
@@ -163,11 +163,11 @@ if(isset($_POST) && !empty($_POST)) {
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;width:190px">
 		<input id="resetbtn" type="reset" value="Nov popis" style="width:100%;height:20px;margin-bottom:2px;" />
-	<div class="iur" style="margin-bottom:2px;">
-		<div style="float:left;padding-top:4px;font-size:13">ID: </div>
-		<input id="yid" type="text" name="IDx" readonly style="background:#ccc;width:170px;margin-left:3px" value="<?php
+		<div class="iur" style="margin-bottom:2px;">
+			<div style="float:left;padding-top:4px;font-size:13">ID: </div>
+			<input id="yid" type="text" name="IDx" readonly style="background:#ccc;width:170px;margin-left:3px" value="<?php
 $sql="SELECT `idpopisa` FROM popis ORDER BY `idpopisa` DESC LIMIT 1";
 $result=mysqli_query($mysqli,$sql) or die;
 $row=$result->fetch_assoc();
@@ -178,8 +178,8 @@ echo $idpopisa;
 else echo '1';
 
 		?>"/>
-		<div style="clear:both;"></div>
-	</div>
+			<div style="clear:both;"></div>
+		</div>
 		<select id="yskladiste" name="skladiste" style="width:190px;margin-bottom:2px;" onchange="izmena()" >
 <?php
 $sql="SELECT `ID`,`naziv` FROM skladista ORDER BY `ID` ASC";
@@ -196,7 +196,8 @@ while($row=$result->fetch_assoc()) {
 		</select>
 		<input id="unosbtn" type="submit" value="Zapamti novo stanje" style="width:100%;height:20px" />
 		<div style="width:100%;border-bottom:1px solid #000;margin:2px 0"></div>
-		<div style="font-size:12;overflow:auto">
+		<div style="position:absolute;top:90px;left:0px;width:190px;bottom:0px;overflow-y:auto;">
+			<div style="font-size:12px;overflow:auto">
 <?php
 $sql="SELECT `idpopisa`,`datum`, `skladiste` FROM popis GROUP BY `idpopisa` ORDER BY `idpopisa` DESC";
 $result=mysqli_query($mysqli,$sql) or die;
@@ -209,18 +210,20 @@ while($row=$result->fetch_assoc()) {
 	echo '<div>'.$idpopisa.' - '.$datum.' '.$svaskladista[$skladiste].'</div>';
 	}
 ?>
+			</div>
 		</div>
 	</div>
 <div style="width:330px;top:27px;left:210px;position:absolute;bottom:0;background:#fff;opacity:0.6">
 </div>
 <div style="width:400px;top:27px;left:545px;position:absolute;height:22px;background:#fff;opacity:0.6;z-index:-5">
 </div>
-<div class="wrap" style="position:absolute;top:32px;left:210px;width:325px;padding-right:5px;bottom:0;overflow-x:hidden;overflow-y:auto" onmouseup="sorter()" onmouseout="sorter()">
-<center><b>Postojeći proizvodi:</b></center>
+<div class="wrap" style="position:absolute;top:30px;left:210px;width:325px;padding-right:5px;bottom:0;overflow-x:hidden;overflow-y:auto;" onmouseup="sorter()" onmouseout="sorter()">
+	<div style="text-align:center;font-style:oblique;font-weight:bold">Postojeći proizvodi:</div>
 	<ul id="sortable1" class="connectedSortable">
 	</ul>
-</div><div style="position:absolute;left:720px;top:32px;font-size:12"><b>Na lageru:</b></div>
+</div>
 <div id="container" onmouseup="sorter()" onmouseout="sorter()">
+	<div style="text-align:center;font-style:oblique;font-weight:bold">Na lageru:</div>
 	<ul id="sortable2" class="connectedSortable" style="width:400px">
 	</ul>
 </div>

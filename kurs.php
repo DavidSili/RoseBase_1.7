@@ -63,6 +63,17 @@ if(isset($_POST) && !empty($_POST)) {
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-1.7.2.min.js"></script>
 <style type="text/css">
+#blacklink {
+	position:absolute;
+	left:0;
+	bottom:0;
+	top:70px;
+	width:185px;
+	overflow-y:auto;
+	overflow-x:hidden;
+	font-size:12;
+	padding-right:5px;
+}
 </style>
 <meta name="robots" content="noindex">
 </head>
@@ -75,7 +86,7 @@ elseif (isset($cid)) echo ' onload="izmena('.$IDx.')"';
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;width:190px">
 		<input id="unosbtn" type="submit" value="Unesi" style="width:100%;height:20px" />
 		<input type="button" value="Novi kurs" style="width:100%;margin-top:5px" onclick="novo()"/>
 		<input type="button" value="Obriši" style="width:100%" onclick="delform()"/>

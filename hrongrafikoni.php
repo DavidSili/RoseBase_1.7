@@ -80,7 +80,7 @@
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6"></div>
 <div style="position:absolute;left:205px;top:32px;right:5px;bottom:5px;background:#fff;opacity:0.6"></div>
-<div style="position:absolute;left:210px;top:37px;right:5px;height:500px;background:#fff;padding:20px 0 100px 50px"><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen" style="height:99px"></div></div>
+<div style="position:absolute;left:205px;top:32px;right:5px;height:500px;background:#fff;padding:25px 0 100px 50px"><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen"></div><div class="stepen" style="height:99px"></div></div>
 
 <div id="skala" style="position:absolute;left:210px;top:37px;width:50px;height:636px"></div>
 <div id="grafikon" style="position:absolute;left:265px;top:37px;right:5px;height:636px;overflow-x:scroll;overflow-y:hidden;white-space:nowrap"></div>

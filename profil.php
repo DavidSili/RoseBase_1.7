@@ -45,38 +45,6 @@ if(isset($_POST) && !empty($_POST)) {
 <div id="introbox" style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.4">
 </div>
 <div class="wrap" style="position:absolute;top:32px;left:30px;width:480px">
-	
-<?php
-		echo '<div class="iur" style="margin-bottom:5px"><div class="iul" style="text-align:left"><b>Korisnik '.$user.':</b></div><div style="clear:both;"></div></div>';
-$sql="SELECT * FROM users";
-$result=mysqli_query($mysqli,$sql);
-$row=$result->fetch_assoc();
-	foreach($row as $xx => $yy) {
-		$$xx=$yy;
-	}
-switch ($funkcija) {
-	case "1" :
-	$funkcija="vođa";
-		break;
-	case "2" :
-	$funkcija="zamenik";
-		break;
-	case "3" :
-	$funkcija="blagajnik";
-		break;
-	case "4" :
-	$funkcija="sekretar";
-		break;
-	case "5" :
-	$funkcija="ekonom";
-		break;
-}
-$sql='SELECT ime FROM odredi WHERE ID="'.$zaodred.'"';
-$result=mysqli_query($mysqli,$sql);
-$row=$result->fetch_assoc();
-echo '<div class="iur"><b>ime:</b> '.$name.'<br/><b>email:</b> '.$email.'<br/><b>funkcija u HISu:</b> '.$funkcija.'<br/><b>deo odreda:</b> '.$row['ime'].'</div>';
-?>
-<br/><br/>
 	<div class="iur" style="margin-bottom:5px">
 		<div class="iul" style="text-align:left">
 			<b>Promena šifre:</b></div><div style="clear:both;">

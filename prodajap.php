@@ -59,7 +59,7 @@ td {
 
 <div style="width:200px;top:27px;position:absolute;left:0;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;left:5px;width:190px">
+	<div style="position:absolute;top:32px;left:5px;bottom:5px;width:190px">
 		<div style="width:100%;border-bottom:1px solid #000;text-align:center;font-weight:bold">Postojeće prodaje</div>
 		<div id="blacklink" style="font-size:12;overflow:auto">
 		<div>
@@ -92,7 +92,8 @@ $pre=date('Y-m-d',strtotime("-1 month"));
 ?>			
 			<div id="datumspec">Od: <input type="date" name="datod" id="datod" disabled="disabled" value="<?php echo $pre;?>"><br>Do: <input type="date" name="datdo" id="datdo" disabled="disabled" value="<?php echo $danas; ?>"></div>
 		</div>
-		<div style="display:none" id="meseciselect">
+		<div style="position:absolute;top:296px;left:0px;width:190px;bottom:0px;overflow-y:auto;">
+			<div style="display:none" id="meseciselect">
 <?php
 $godinax="";
 $kalendar=array(1=>'Januar',2=>'Februar',3=>'Mart',4=>'April',5=>'Maj',6=>'Jun',7=>'Jul',8=>'Avgust',9=>'Septembar',10=>'Oktobar',11=>'Novembar',12=>'Decembar');
@@ -110,6 +111,7 @@ while($row=$result->fetch_assoc()) {
 	$godinax=$godina;
 }
 ?>
+			</div>
 		</div>
 	</div>
 </div>

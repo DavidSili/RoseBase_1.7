@@ -65,6 +65,17 @@ if (isset($maticni)==false) $maticni=NULL;
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-1.7.2.min.js"></script>
 <style type="text/css">
+#blacklink {
+	position:absolute;
+	left:0;
+	bottom:0;
+	top:70px;
+	width:185px;
+	overflow-y:auto;
+	overflow-x:hidden;
+	font-size:12;
+	padding-right:5px;
+}
 </style>
 <meta name="robots" content="noindex">
 </head>

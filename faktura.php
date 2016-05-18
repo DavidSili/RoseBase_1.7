@@ -45,7 +45,7 @@
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql='SELECT `prodaja`.`ID` ID, `prodaja`.`brracuna` brracuna FROM prodaja LEFT JOIN skladista ON `prodaja`.`skladiste`=`skladista`.`ID` WHERE `prodaja`.`brracuna` IS NOT NULL AND `prodaja`.`brracuna` != "" AND `skladista`.`naziv`="Pančevo" ORDER BY `prodaja`.`brracuna` DESC';
-$result=mysqli_real_escape_string($mysqli,$sql) or die;
+$result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
@@ -61,7 +61,7 @@ while($row=$result->fetch_assoc()) {
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql='SELECT `prodaja`.`ID` ID, `prodaja`.`brracuna` brracuna FROM prodaja LEFT JOIN skladista ON `prodaja`.`skladiste`=`skladista`.`ID` WHERE `prodaja`.`brracuna` IS NOT NULL AND `prodaja`.`brracuna` != "" AND `skladista`.`naziv`="Biofresh" ORDER BY `prodaja`.`brracuna` DESC';
-$result=mysqli_real_escape_string($mysqli,$sql) or die;
+$result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
@@ -77,7 +77,7 @@ while($row=$result->fetch_assoc()) {
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
 $sql='SELECT `prodaja`.`ID` ID, `prodaja`.`brracuna` brracuna FROM prodaja LEFT JOIN skladista ON `prodaja`.`skladiste`=`skladista`.`ID` WHERE `prodaja`.`brracuna` IS NOT NULL AND `prodaja`.`brracuna` != "" AND `skladista`.`naziv`!="Pančevo" AND `skladista`.`naziv`!="Biofresh" ORDER BY `prodaja`.`brracuna` DESC';
-$result=mysqli_real_escape_string($mysqli,$sql) or die;
+$result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {

@@ -40,7 +40,7 @@
 </div>
 <div style="width:200px;top:27px;position:absolute;left:440px;bottom:0;background:#fff;opacity:0.6">
 </div>
-	<div style="position:absolute;top:32px;bottom:5px;left:5px;width:195px;overflow-y:auto">
+	<div style="position:absolute;top:32px;bottom:5px;left:5px;width:190px;overflow-y:auto">
 		<div style="width:100%;border-bottom:1px solid #000;margin-bottom:5px;text-align:center;font-weight:bold">Land of Roses</div>
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
