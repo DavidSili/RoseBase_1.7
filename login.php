@@ -2,10 +2,11 @@
  
 session_start();
 include 'config.php';
-if (isset($_GET["url"])) $url=$_GET["url"];
+if (isset($_GET["url"])) $url=$mysqli->real_escape_string($_GET["url"]);
 else $url="index.php";
 
 if (isset($_GET['login'])) {
+
 	$usersent=$_POST['username'];
 	$passsent=$_POST['password'];
 	$pass_url=$_POST['pass_url'];
