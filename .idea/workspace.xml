@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e80b5d23-3f4b-48fc-ac58-38be8703e031" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ajax/nabavkaplana.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/nabavkaplan.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ajax/nabavkaplana2.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/topbar.php" afterPath="$PROJECT_DIR$/topbar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ajax/nabavkaplana.php" afterPath="$PROJECT_DIR$/ajax/nabavkaplana.php" />
     </list>
     <ignored path="RoseBase1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +29,8 @@
       <file leaf-file-name="nabavkaplan.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/nabavkaplan.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="16.923077">
-              <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+            <state vertical-scroll-proportion="-13.076923">
+              <caret line="68" column="50" selection-start-line="68" selection-start-column="50" selection-end-line="68" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -40,23 +39,23 @@
       <file leaf-file-name="nabavkaplana.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ajax/nabavkaplana.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20862068">
-              <caret line="29" column="62" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="62" />
+            <state vertical-scroll-proportion="0.56962025">
+              <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
               <folding>
-                <marker date="1466558762626" expanded="true" signature="200:247" placeholder="SELECT sifra..proizvodi..." />
-                <marker date="1466558762626" expanded="true" signature="200:270" placeholder="SELECT sifra..proizvodi..." />
-                <marker date="1466558762626" expanded="true" signature="526:585" placeholder="SELECT proiz..zalihe..." />
-                <marker date="1466558762626" expanded="true" signature="776:1006" placeholder="SELECT proiz..zalihe..." />
-                <marker date="1466558762626" expanded="true" signature="1278:1566" placeholder="SELECT pi.pr..prodajaitems..." />
-                <marker date="1466558762626" expanded="true" signature="1775:2063" placeholder="SELECT pi.pr..prodajaitems..." />
-                <marker date="1466558762626" expanded="true" signature="2322:2506" placeholder="SELECT pi.pr..prodajaitems..." />
-                <marker date="1466558762626" expanded="true" signature="2322:2507" placeholder="SELECT pi.pr..prodajaitems..." />
-                <marker date="1466558762626" expanded="true" signature="2322:2552" placeholder="SELECT pi.pr..prodajaitems..." />
-                <marker date="1466558762626" expanded="true" signature="2322:2620" placeholder="SELECT pi.pr..prodajaitems..." />
-                <marker date="1466558762626" expanded="true" signature="2812:3043" placeholder="SELECT pi.pr..prodajaitems..." />
-                <marker date="1466558762626" expanded="true" signature="3356:3370" placeholder="..." />
-                <marker date="1466558762626" expanded="true" signature="3452:3466" placeholder="..." />
-                <marker date="1466558762626" expanded="true" signature="5276:5290" placeholder="..." />
+                <marker date="1466613533825" expanded="true" signature="200:247" placeholder="SELECT sifra..proizvodi..." />
+                <marker date="1466613533825" expanded="true" signature="200:270" placeholder="SELECT sifra..proizvodi..." />
+                <marker date="1466613533825" expanded="true" signature="526:585" placeholder="SELECT proiz..zalihe..." />
+                <marker date="1466613533825" expanded="true" signature="776:1006" placeholder="SELECT proiz..zalihe..." />
+                <marker date="1466613533825" expanded="true" signature="1278:1566" placeholder="SELECT pi.pr..prodajaitems..." />
+                <marker date="1466613533825" expanded="true" signature="1775:2063" placeholder="SELECT pi.pr..prodajaitems..." />
+                <marker date="1466613533825" expanded="true" signature="2322:2506" placeholder="SELECT pi.pr..prodajaitems..." />
+                <marker date="1466613533825" expanded="true" signature="2322:2507" placeholder="SELECT pi.pr..prodajaitems..." />
+                <marker date="1466613533825" expanded="true" signature="2322:2552" placeholder="SELECT pi.pr..prodajaitems..." />
+                <marker date="1466613533825" expanded="true" signature="2322:2620" placeholder="SELECT pi.pr..prodajaitems..." />
+                <marker date="1466613533825" expanded="true" signature="2812:3043" placeholder="SELECT pi.pr..prodajaitems..." />
+                <marker date="1466613533825" expanded="true" signature="3356:3370" placeholder="..." />
+                <marker date="1466613533825" expanded="true" signature="3452:3466" placeholder="..." />
+                <marker date="1466613533825" expanded="true" signature="5276:5290" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -129,8 +128,8 @@
         <option value="$PROJECT_DIR$/nabavkaus.php" />
         <option value="$PROJECT_DIR$/hrongrafikoni.php" />
         <option value="$PROJECT_DIR$/topbar.php" />
-        <option value="$PROJECT_DIR$/ajax/nabavkaplana.php" />
         <option value="$PROJECT_DIR$/nabavkaplan.php" />
+        <option value="$PROJECT_DIR$/ajax/nabavkaplana.php" />
       </list>
     </option>
   </component>
@@ -305,13 +304,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ajax/profakturapa2.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.601724">
-          <caret line="157" column="0" selection-start-line="157" selection-start-column="0" selection-end-line="157" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ajax/profakturapa.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-69.07692">
@@ -649,33 +641,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ajax/nabavkaplana2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.153846">
+          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+          <folding>
+            <marker date="1466558762626" expanded="true" signature="200:270" placeholder="SELECT sifra..proizvodi..." />
+            <marker date="1466558762626" expanded="true" signature="526:585" placeholder="SELECT proiz..zalihe..." />
+            <marker date="1466558762626" expanded="true" signature="776:1006" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466558762626" expanded="true" signature="1278:1566" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466558762626" expanded="true" signature="1775:2063" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466558762626" expanded="true" signature="2322:2552" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466558762626" expanded="true" signature="2812:3043" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466558762626" expanded="true" signature="3356:3370" placeholder="..." />
+            <marker date="1466558762626" expanded="true" signature="3452:3466" placeholder="..." />
+            <marker date="1466558762626" expanded="true" signature="5276:5290" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/nabavkaplan.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="16.923077">
-          <caret line="45" column="34" selection-start-line="45" selection-start-column="34" selection-end-line="45" selection-end-column="34" />
+        <state vertical-scroll-proportion="-13.076923">
+          <caret line="68" column="50" selection-start-line="68" selection-start-column="50" selection-end-line="68" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ajax/nabavkaplana.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20862068">
-          <caret line="29" column="62" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="62" />
+        <state vertical-scroll-proportion="0.56962025">
+          <caret line="175" column="29" selection-start-line="175" selection-start-column="29" selection-end-line="175" selection-end-column="29" />
           <folding>
-            <marker date="1466558762626" expanded="true" signature="200:247" placeholder="SELECT sifra..proizvodi..." />
-            <marker date="1466558762626" expanded="true" signature="200:270" placeholder="SELECT sifra..proizvodi..." />
-            <marker date="1466558762626" expanded="true" signature="526:585" placeholder="SELECT proiz..zalihe..." />
-            <marker date="1466558762626" expanded="true" signature="776:1006" placeholder="SELECT proiz..zalihe..." />
-            <marker date="1466558762626" expanded="true" signature="1278:1566" placeholder="SELECT pi.pr..prodajaitems..." />
-            <marker date="1466558762626" expanded="true" signature="1775:2063" placeholder="SELECT pi.pr..prodajaitems..." />
-            <marker date="1466558762626" expanded="true" signature="2322:2506" placeholder="SELECT pi.pr..prodajaitems..." />
-            <marker date="1466558762626" expanded="true" signature="2322:2507" placeholder="SELECT pi.pr..prodajaitems..." />
-            <marker date="1466558762626" expanded="true" signature="2322:2552" placeholder="SELECT pi.pr..prodajaitems..." />
-            <marker date="1466558762626" expanded="true" signature="2322:2620" placeholder="SELECT pi.pr..prodajaitems..." />
-            <marker date="1466558762626" expanded="true" signature="2812:3043" placeholder="SELECT pi.pr..prodajaitems..." />
-            <marker date="1466558762626" expanded="true" signature="3356:3370" placeholder="..." />
-            <marker date="1466558762626" expanded="true" signature="3452:3466" placeholder="..." />
-            <marker date="1466558762626" expanded="true" signature="5276:5290" placeholder="..." />
+            <marker date="1466613533825" expanded="true" signature="200:247" placeholder="SELECT sifra..proizvodi..." />
+            <marker date="1466613533825" expanded="true" signature="200:270" placeholder="SELECT sifra..proizvodi..." />
+            <marker date="1466613533825" expanded="true" signature="526:585" placeholder="SELECT proiz..zalihe..." />
+            <marker date="1466613533825" expanded="true" signature="776:1006" placeholder="SELECT proiz..zalihe..." />
+            <marker date="1466613533825" expanded="true" signature="1278:1566" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466613533825" expanded="true" signature="1775:2063" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466613533825" expanded="true" signature="2322:2506" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466613533825" expanded="true" signature="2322:2507" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466613533825" expanded="true" signature="2322:2552" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466613533825" expanded="true" signature="2322:2620" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466613533825" expanded="true" signature="2812:3043" placeholder="SELECT pi.pr..prodajaitems..." />
+            <marker date="1466613533825" expanded="true" signature="3356:3370" placeholder="..." />
+            <marker date="1466613533825" expanded="true" signature="3452:3466" placeholder="..." />
+            <marker date="1466613533825" expanded="true" signature="5276:5290" placeholder="..." />
           </folding>
         </state>
       </provider>

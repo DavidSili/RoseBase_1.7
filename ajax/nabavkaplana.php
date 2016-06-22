@@ -162,4 +162,26 @@ else {
 	$passhtml['sve'] .= '</table>';
 }
 echo json_encode($passhtml);
+/*
+Uspeo sam da nađem mogućnost da sve ove query-e stavim u jednan query sa sub-query-ima (s tim da samo treba još dodati sub-query-e za pojedinačne periode, ali to nije problem). Problem je što na ovaj način učitavanje traje predugo, zbog čega sam odlučio da ostanem na trenutnoj varijanti koja se nalazi u kodu. Ovo ostavljam ovde ako mi bude zatrebalo kasnije.
+
+SELECT
+	pro.sifra sifra,
+	pro.naziv naziv,
+	IFNULL(SUM(sub.kolicina),0) ukupno
+FROM
+	proizvodi pro
+LEFT JOIN
+	(SELECT
+		pi.proizvod proizvod,
+		pi.kolicina kolicina
+	FROM prodajaitems pi
+	LEFT JOIN
+		prodaja pr
+	ON pi.prodaja = pr.ID
+	WHERE pr.datprometa > DATE_SUB(NOW(), INTERVAL 1 MONTH)) sub
+ON pro.sifra = sub.proizvod
+GROUP BY pro.sifra
+ORDER BY pro.sifra ASC
+*/
 ?>
