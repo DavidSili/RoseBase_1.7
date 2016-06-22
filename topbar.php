@@ -23,6 +23,7 @@
 				<li><a href="nabavkaus.php">Jednostavna nabavka</a></li>
 				<li><a href="nabavkau.php">Detaljna nabavka</a></li>
 				<li><a href="nabavkap.php">Pregled</a></li>
+				<li><a href="nabavkaplan.php">Planiranje nabavke</a></li>
 			</ul>
 		</li>
 		<li><a href="zalihe.php">Skladište</a>
