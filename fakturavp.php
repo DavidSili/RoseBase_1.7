@@ -51,7 +51,7 @@
 		<div style="width:100%;border-bottom:1px solid #000;margin-bottom:5px;text-align:center;font-weight:bold">Land of Roses</div>
 		<div id="blacklink" style="font-size:12;overflow:auto">
 <?php
-$sql='SELECT `prodaja`.`ID` ID, `prodaja`.`brracuna` brracuna FROM prodaja LEFT JOIN skladista ON `prodaja`.`skladiste`=`skladista`.`ID` WHERE tip = "3" ORDER BY `prodaja`.`brracuna` DESC';
+$sql='SELECT `prodaja`.`ID` ID, `prodaja`.`brracuna` brracuna FROM prodaja LEFT JOIN skladista ON `prodaja`.`skladiste`=`skladista`.`ID` WHERE `kupac` = "175" AND `skladiste` = "2" ORDER BY `prodaja`.`brracuna` DESC';
 $result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 

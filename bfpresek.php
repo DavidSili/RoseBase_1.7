@@ -33,7 +33,7 @@ if(isset($_POST) && !empty($_POST)) {
 	
 	// ----------------- Unos ------------------
 	
-	$sql='INSERT INTO prodaja (kupac, brpracuna, brracuna, brizvoda, rok, datprometa, nacdost, brracunau, pozivnb, skladiste, tisporuke, zauplatu, tip, uneo) VALUES ("175", "'.$brpracuna.'", "'.$brracuna.'", "'.$brizvoda.'", "'.$rok.'", "'.$datprometa.'", "1", "'.$brracunau.'", "'.$pozivnb.'", "2", "0.00", "'.$zauplatu.'", "3","'.$user.' - '.$dattime.'")';
+	$sql='INSERT INTO prodaja (kupac, brpracuna, brracuna, brizvoda, rok, datprometa, nacdost, brracunau, pozivnb, skladiste, tisporuke, zauplatu, uneo) VALUES ("175", "'.$brpracuna.'", "'.$brracuna.'", "'.$brizvoda.'", "'.$rok.'", "'.$datprometa.'", "1", "'.$brracunau.'", "'.$pozivnb.'", "2", "0.00", "'.$zauplatu.'", "'.$user.' - '.$dattime.'")';
 	mysqli_query($mysqli,$sql) or die;
 	
 	$sql='SELECT ID FROM prodaja ORDER BY ID DESC LIMIT 1';

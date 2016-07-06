@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2016 at 03:26 PM
+-- Generation Time: Jul 06, 2016 at 04:50 AM
 -- Server version: 5.7.9
 -- PHP Version: 7.0.0
 
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `msklad` (
   `menjali` varchar(5000) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9983 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci COMMENT='medjuskladistenje';
+) ENGINE=InnoDB AUTO_INCREMENT=10159 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci COMMENT='medjuskladistenje';
 
 -- --------------------------------------------------------
 
@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `nabavka` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`),
   UNIQUE KEY `ID_2` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- --------------------------------------------------------
 
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `nabavkaitems` (
   `menjali` varchar(5000) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2211 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci COMMENT='nabavka po pojedinacnim proizvodima';
+) ENGINE=InnoDB AUTO_INCREMENT=2253 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci COMMENT='nabavka po pojedinacnim proizvodima';
 
 -- --------------------------------------------------------
 
@@ -223,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `partneri` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`),
   UNIQUE KEY `ID_2` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=349 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=359 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- --------------------------------------------------------
 
@@ -288,13 +288,12 @@ CREATE TABLE IF NOT EXISTS `prodaja` (
   `zauplatu` decimal(12,2) DEFAULT NULL COMMENT 'Ukupna cena za uplatu',
   `zarada` decimal(12,2) DEFAULT NULL COMMENT 'Ukupna zarada',
   `konsignacija` int(11) DEFAULT NULL COMMENT 'vezano za konsignaciju',
-  `tip` int(2) UNSIGNED NOT NULL COMMENT 'tip prodaje',
   `uneo` varchar(100) COLLATE utf8_slovenian_ci NOT NULL,
   `menjali` varchar(5000) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`),
   UNIQUE KEY `ID_2` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=1632 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1677 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci;
 
 -- --------------------------------------------------------
 
@@ -317,7 +316,7 @@ CREATE TABLE IF NOT EXISTS `prodajaitems` (
   `menjali` varchar(5000) COLLATE utf8_slovenian_ci DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22120 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci COMMENT='nabavka po pojedinacnim proizvodima';
+) ENGINE=InnoDB AUTO_INCREMENT=22383 DEFAULT CHARSET=utf8 COLLATE=utf8_slovenian_ci COMMENT='nabavka po pojedinacnim proizvodima';
 
 -- --------------------------------------------------------
 
