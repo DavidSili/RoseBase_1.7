@@ -89,11 +89,11 @@ if(isset($_POST) && !empty($_POST)) {
 	// ----------------- Unos ------------------
 	
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
-		$sql='INSERT INTO prodaja (kupac, datprometa, bifr, nacdost, skladiste, tisporuke, bezpopusta, popust, bezpdva, iznospdv, zauplatu, zarada, konsignacija, uneo) VALUES ("84", "'.$datprometa.'", "'.$bifr.'", "1", "22", "0", "'.$bezpopusta.'", "'.$popust.'", "'.$bezpdva.'", "'.$iznospdv.'", "'.$zauplatu.'", "'.$ukkzarada.'", "'.$nextmsklad.'","'.$user.' - '.$dattime.'")';
-		mysqli_query($mysqli,$sql) or die($sql.': '.mysql_error());
+		$sql='INSERT INTO prodaja (kupac, brpracuna, datprometa, rok, bifr, nacdost, skladiste, tisporuke, bezpopusta, popust, bezpdva, iznospdv, zauplatu, zarada, konsignacija, uneo) VALUES ("84", "", "'.$datprometa.'", "'.$datprometa.'", "'.$bifr.'", "1", "22", "0", "'.$bezpopusta.'", "'.$popust.'", "'.$bezpdva.'", "'.$iznospdv.'", "'.$zauplatu.'", "'.$ukkzarada.'", "'.$nextmsklad.'","'.$user.' - '.$dattime.'")';
+		mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
 		
 		$sql='SELECT ID FROM prodaja WHERE kupac="84" ORDER BY ID DESC LIMIT 1';
-		$result=mysqli_query($mysqli,$sql) or die($sql.': '.mysql_error());
+		$result=mysqli_query($mysqli,$sql) or die(mysqli_error($mysqli));
 		$row=$result->fetch_assoc();
 		$prodajano=$row['ID'];
 		
@@ -108,20 +108,20 @@ if(isset($_POST) && !empty($_POST)) {
 			$zaradauklist=${'zaradauklist'.$zz};
 			
 			$sqls='INSERT INTO msklad (idmsklad, datum, skladiz, skladu, proizvod, razlika, uneo) VALUES ("'.$nextmsklad.'","'.$datprometa.'","2","22","'.$proizvod.'","'.$kolicina.'","'.$user.' - '.$dattime.'")';
-			mysqli_query($mysqli,$sqls) or die (mysql_error());
+			mysqli_query($mysqli,$sqls) or die (mysqli_error($mysqli));
 		
 			$sql2='INSERT INTO prodajaitems (prodaja, iduprodaji, proizvod, kolicina, mpbezpdv, rabat, pdv, zarada, uneo) VALUES ("'.$prodaja.'", "'.$iduprodaji.'", "'.$proizvod.'", "'.$kolicina.'", "'.$mpbezpdv.'", "'.$rabat.'", "'.$pdv.'", "'.$zaradauklist.'", "'.$user.' - '.$dattime.'")';
-			mysqli_query($mysqli,$sql2) or die;
+			mysqli_query($mysqli,$sql2) or die (mysqli_error($mysqli));
 			
 			$sql3a='SELECT kolicina FROM zalihe WHERE skladiste="2" AND proizvod="'.$zz.'"';
-			$result=mysqli_query($mysqli,$sql3a) or die;
+			$result=mysqli_query($mysqli,$sql3a) or die (mysqli_error($mysqli));
 			$row=$result->fetch_assoc();
 			$pstanje=$row['kolicina'];
 			
 			$nstanje=$pstanje-$kolicina;
 			$sql3b='UPDATE zalihe SET kolicina="'.$nstanje.'" WHERE skladiste="2" AND proizvod="'.$proizvod.'"';
 
-			mysqli_query($mysqli,$sql3b) or die;
+			mysqli_query($mysqli,$sql3b) or die (mysqli_error($mysqli));
 			
 		}
 
