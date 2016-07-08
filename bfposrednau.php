@@ -208,10 +208,10 @@ if(isset($_POST) && !empty($_POST)) {
 			
 				if ($kolicina=="0") {
 					$sql2='DELETE FROM prodajaitems WHERE prodaja="'.$prodaja.'" AND proizvod="'.$proizvod.'"';
-					mysqli_query($mysqli,$sql2) or die (mysql_error());
+					mysqli_query($mysqli,$sql2) or die;
 
 					$sql2s='DELETE FROM msklad WHERE idmsklad="'.$konsignacija.'" AND proizvod="'.$proizvod.'"';
-					mysqli_query($mysqli,$sql2s) or die (mysql_error());
+					mysqli_query($mysqli,$sql2s) or die;
 				}
 				else {
 					$sql2='UPDATE prodajaitems SET prodaja="'.$prodaja.'", iduprodaji="'.$iduprodaji.'", proizvod="'.$proizvod.'", kolicina="'.$kolicina.'", mpbezpdv="'.$mpbezpdv.'", rabat="'.$rabat.'", pdv="'.$pdv.'", zarada="'.$zaradauklist.'", menjali="'.$xxmenjali.'; '.$user.' - '.$dattime.'" WHERE prodaja="'.$prodaja.'" AND proizvod="'.$proizvod.'"';
