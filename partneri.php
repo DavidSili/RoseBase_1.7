@@ -22,7 +22,7 @@ if(isset($_POST) && !empty($_POST)) {
 	
 	$dattime=date('G:i:s j.n.Y.');
 	$sql='SELECT ID FROM partneri ORDER BY ID DESC LIMIT 1';
-	$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+	$result=mysqli_query($mysqli,$sql) or die;
 	$row=$result->fetch_assoc();
 	$lastID=$row['ID'];
 	$nextID=$lastID+1;
@@ -38,7 +38,7 @@ if (isset($maticni)==false) $maticni=0;
 	}
 	elseif (isset($lastID)==false OR $IDx>$lastID) {
 		$sql='INSERT INTO partneri (gpartnera, ime, prezime, pol, ulicaibr, mesto, drzava, firma, pib, maticni, telefon, mobilni, email, uneo) VALUES ("'.$gpartnera.'","'.$ime.'","'.$prezime.'","'.$pol.'","'.$ulicaibr.'","'.$mesto.'","'.$drzava.'","'.$firma.'","'.$pib.'","'.$maticni.'","'.$telefon.'","'.$mobilni.'","'.$email.'","'.$user.' - '.$dattime.'")';
-		mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+		mysqli_query($mysqli,$sql) or die;
 	}
 	else {
 		$sql='SELECT menjali FROM partneri WHERE ID="'.$IDx.'"';
@@ -48,7 +48,7 @@ if (isset($maticni)==false) $maticni=0;
 		$cid=$IDx;
 		
 		$sql='UPDATE partneri SET gpartnera="'.$gpartnera.'", ime="'.$ime.'", prezime="'.$prezime.'", pol="'.$pol.'", ulicaibr="'.$ulicaibr.'", mesto="'.$mesto.'", drzava="'.$drzava.'", firma="'.$firma.'", pib="'.$pib.'", maticni="'.$maticni.'", telefon="'.$telefon.'", mobilni="'.$mobilni.'", email="'.$email.'", menjali="'.$xmenjali.'; '.$user.' - '.$dattime.'" WHERE ID="'.$IDx.'"';
-		mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+		mysqli_query($mysqli,$sql) or die;
 	}
 		
 }
@@ -97,7 +97,7 @@ elseif (isset($cid)) echo ' onload="izmena('.$IDx.')"';
 <?php
 $gpartneraxx="";
 $sql="SELECT `ID`,`naziv` FROM gpartnera ORDER BY `ID`";
-$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+$result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 	foreach($row as $xx => $yy) {
 		$$xx=$yy;
@@ -105,7 +105,7 @@ while($row=$result->fetch_assoc()) {
 	$gpartnerax[$ID]=$naziv;
 }
 $sql="SELECT `ID`,`prezime`,`ime`,`gpartnera` FROM partneri ORDER BY `gpartnera`,`prezime`,`ime` ASC";
-$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+$result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 
 	foreach($row as $xx => $yy) {
@@ -127,7 +127,7 @@ while($row=$result->fetch_assoc()) {
 		<div class="iul">ID</div>
 		<input id="yid" type="text" name="IDx" class="iud" readonly style="background:#ccc" value="<?php
 $sql="SELECT `ID` FROM partneri ORDER BY `ID` DESC LIMIT 1";
-$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+$result=mysqli_query($mysqli,$sql) or die;
 $row=$result->fetch_assoc();
 if (isset($row['ID'])) {
 $ID=$row['ID']+1;
@@ -143,7 +143,7 @@ else echo '1';
 		<select id="ygpartnera" type="text" name="gpartnera" class="iud" autofocus onchange="pravno()">
 <?php
 $sql='SELECT ID, naziv FROM gpartnera ORDER BY naziv';
-$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+$result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 	$ID=$row['ID'];
 	$naziv=$row['naziv'];
@@ -180,7 +180,7 @@ while($row=$result->fetch_assoc()) {
 	</div>
 <?php
 $sql='SELECT broj, mesto FROM pobroj ORDER BY mesto';
-$result=mysqli_query($mysqli,$sql) or die (mysqli_error($mysqli));
+$result=mysqli_query($mysqli,$sql) or die;
 while($row=$result->fetch_assoc()) {
 	$broj=$row['broj'];
 	$mesto=$row['mesto'];
