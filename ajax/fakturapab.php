@@ -186,8 +186,8 @@ foreach($redovi as $xx => $yy) {
 		echo '<div id="header">
 	<div style="overflow:hidden">';
 	
-		if ($nazivsklad == "Pančevo") echo '<img src="../images/logoBF.png" style="float:left;height:100px"/><div style="float:right;text-align:right">Bio Fresh doo Pančevo,<br/>26000, ul. Njegoševa 1<br/>Matični broj: 21060534<br/>PIB: 108751622<br/>Tel: +381 60 8080 613<br/>br. računa: 180-1281210042203-84<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>';
-		elseif ($nazivsklad == "Biofresh") echo '<img src="../images/logoBF.png" style="float:left;height:100px"/><div style="float:right;text-align:right">Bio Fresh doo Pančevo,<br/>26000, ul. Njegoševa 1<br/>Matični broj: 21060534<br/>PIB: 108751622<br/>Tel: +381 60 8080 613<br/>br. računa: 180-1281210042203-84<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>';
+		if ($nazivsklad == "Pančevo") echo '<img src="../images/logoBF.png" style="float:left;height:100px"/><div style="float:right;text-align:right">Bio Fresh doo Pančevo,<br/>26000, ul. Karađorđeva 30<br/>Matični broj: 21060534<br/>PIB: 108751622<br/>Tel: +381 60 8080 613<br/>br. računa: 180-1281210042203-84<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>';
+		elseif ($nazivsklad == "Biofresh") echo '<img src="../images/logoBF.png" style="float:left;height:100px"/><div style="float:right;text-align:right">Bio Fresh doo Pančevo,<br/>26000, ul. Karađorđeva 30<br/>Matični broj: 21060534<br/>PIB: 108751622<br/>Tel: +381 60 8080 613<br/>br. računa: 180-1281210042203-84<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>';
 		elseif ($gpartneraf > 4 AND $gpartneraf < 9) {
 		echo '<div style="float:right;text-align:right">'.$firmaf.'<br/>'.$pobrojf.' '.$mestof.', '.$ulicaibrf;
 			if ($drzavaf!="Srbija") echo $mestof.', '.$drzavaf.'<br/>';
@@ -229,7 +229,7 @@ foreach($redovi as $xx => $yy) {
 			echo '<div id="header">
 	<div style="overflow:hidden">
 		<img src="../images/logoBF.png" style="float:left;width:200px"/>
-		<div style="float:right;text-align:right">BIO FRESH DOO Pančevo,<br/>26000, ul. Njegoševa 1<br/>Matični broj: 21060534<br/>PIB: 108751622<br/>Tel: +381 60 8080 613<br/>br. računa: 180-1281210042203-84<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>
+		<div style="float:right;text-align:right">BIO FRESH DOO Pančevo,<br/>26000, ul. Karađorđeva 30<br/>Matični broj: 21060534<br/>PIB: 108751622<br/>Tel: +381 60 8080 613<br/>br. računa: 180-1281210042203-84<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>
 	</div>
 	<div style="overflow:hidden;margin-top:0.5cm;font-size:14">
 		<div style="float:left;text-align:center;margin-left:2cm">'.$levibox.'</div>

@@ -183,7 +183,7 @@ foreach($redovi as $xx => $yy) {
 		echo '<div id="header">
 	<div style="overflow:hidden">
 		<img src="../images/logoLoR.jpg" style="float:left;width:12cm"/>
-		<div style="float:right;text-align:right">LAND OF ROSES DOO Pančevo,<br/>26000, ul. Njegoševa 1<br/>Matični broj: 20945508<br/>PIB: 108173517<br/>Tel: +381 60 8080 613<br/>br. računa: 220-130624-03<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>
+		<div style="float:right;text-align:right">LAND OF ROSES DOO Pančevo,<br/>26000, ul. Karađorđeva 30<br/>Matični broj: 20945508<br/>PIB: 108173517<br/>Tel: +381 60 8080 613<br/>br. računa: 220-130624-03<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>
 	</div>
 	<div style="overflow:hidden;margin-top:0.5cm;font-size:14">
 		<div style="float:left;text-align:center;margin-left:2cm">'.$levibox.'</div>
@@ -215,7 +215,7 @@ foreach($redovi as $xx => $yy) {
 			echo '<div id="header">
 	<div style="overflow:hidden">
 		<img src="../images/logoLoR.jpg" style="float:left;width:12cm"/>
-		<div style="float:right;text-align:right">LAND OF ROSES DOO Pančevo,<br/>26000, ul. Njegoševa 1<br/>Matični broj: 20945508<br/>PIB: 108173517<br/>Tel: +381 60 8080 613<br/>br. računa: 220-130624-03<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>
+		<div style="float:right;text-align:right">LAND OF ROSES DOO Pančevo,<br/>26000, ul. Karađorđeva 30<br/>Matični broj: 20945508<br/>PIB: 108173517<br/>Tel: +381 60 8080 613<br/>br. računa: 220-130624-03<br/>web: www.bugarska-ruza.rs <br/>e-mai: office@bugarska-ruza.rs</div>
 	</div>
 	<div style="overflow:hidden;margin-top:0.5cm;font-size:14">
 		<div style="float:left;text-align:center;margin-left:2cm">'.$levibox.'</div>
