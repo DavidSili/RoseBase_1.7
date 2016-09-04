@@ -40,13 +40,13 @@ if(isset($_POST) && !empty($_POST)) {
 		if ($kolicina>0) {
 			if (isset($novo[$proizvod])) {
 				$sql='UPDATE zalihe SET `kolicina`="'.$novo[$proizvod].'" WHERE `proizvod`="'.$proizvod.'" AND `skladiste`="'.$skladiste.'"';
-				$sql2='INSERT INTO popis (idpopisa, datum, proizvod, skladiste, kolknjiz, kolpopis, menjali) VALUES ("'.$idpopisa.'","'.$datbase.'","'.$proizvod.'","'.$skladiste.'","'.$kolicina.'","'.$novo[$proizvod].'","'.$user.' - '.$dattime.'")';
+				$sql2='INSERT INTO popis (idpopisa, datum, proizvod, skladiste, kolknjiz, kolpopis, uneo) VALUES ("'.$idpopisa.'","'.$datbase.'","'.$proizvod.'","'.$skladiste.'","'.$kolicina.'","'.$novo[$proizvod].'","'.$user.' - '.$dattime.'")';
 				mysqli_query($mysqli,$sql) or die;
 				mysqli_query($mysqli,$sql2) or die;
 			}
 			else {
 				$sql='UPDATE zalihe SET `kolicina`="0" WHERE `proizvod`="'.$proizvod.'" AND `skladiste`="'.$skladiste.'"';
-				$sql2='INSERT INTO popis (idpopisa, datum, proizvod, skladiste, kolknjiz, kolpopis, menjali) VALUES ("'.$idpopisa.'","'.$datbase.'","'.$proizvod.'","'.$skladiste.'","'.$kolicina.'","0","'.$user.' - '.$dattime.'")';
+				$sql2='INSERT INTO popis (idpopisa, datum, proizvod, skladiste, kolknjiz, kolpopis, uneo) VALUES ("'.$idpopisa.'","'.$datbase.'","'.$proizvod.'","'.$skladiste.'","'.$kolicina.'","0","'.$user.' - '.$dattime.'")';
 				mysqli_query($mysqli,$sql) or die;
 				mysqli_query($mysqli,$sql2) or die;
 			}
@@ -54,7 +54,7 @@ if(isset($_POST) && !empty($_POST)) {
 		else {
 			if (isset($novo[$proizvod]) AND $novo[$proizvod]>0) {
 				$sql='UPDATE zalihe SET `kolicina`="'.$novo[$proizvod].'" WHERE `proizvod`="'.$proizvod.'" AND `skladiste`="'.$skladiste.'"';
-				$sql2='INSERT INTO popis (idpopisa, datum, proizvod, skladiste, kolknjiz, kolpopis, menjali) VALUES ("'.$idpopisa.'","'.$datbase.'","'.$proizvod.'","'.$skladiste.'","'.$kolicina.'","'.$novo[$proizvod].'","'.$user.' - '.$dattime.'")';
+				$sql2='INSERT INTO popis (idpopisa, datum, proizvod, skladiste, kolknjiz, kolpopis, uneo) VALUES ("'.$idpopisa.'","'.$datbase.'","'.$proizvod.'","'.$skladiste.'","'.$kolicina.'","'.$novo[$proizvod].'","'.$user.' - '.$dattime.'")';
 				mysqli_query($mysqli,$sql) or die;
 				mysqli_query($mysqli,$sql2) or die;
 			}
